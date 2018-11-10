@@ -49,22 +49,17 @@ public class BrickBreaker extends JFrame implements ActionListener {
 		playArea.setLayout(new GridLayout(8,6,2,2));
 		
 		panelHolder = new JPanel[8][6];    
-		/*
+		
 		for(int row = 0; row < panelHolder.length; row++) {
 		   for(int col = 0; col < panelHolder[0].length; col++) {
 			   
 		      panelHolder[row][col] = new JPanel();
-		    //  panelHolder[row][col].setBackground(Color.white);		      
+
+		      panelHolder[row][col].setBackground(Color.white);		      
 		      playArea.add(panelHolder[row][col]);
 		
 		   }
 		}
-		*/
-		panelHolder[0][0] = new Brick(3);
-		panelHolder[0][1] = new Brick(5);
-		playArea.add(panelHolder[0][0]);
-		playArea.add(panelHolder[0][1]);
-		
 		
 		add(playArea);
 
@@ -77,7 +72,7 @@ public class BrickBreaker extends JFrame implements ActionListener {
 	//adds a new row of bricks
 	public void addRow() {
 		
-		int numNewBricks = (int) (Math.random()*4 + 2);
+		int numNewBricks = (int) (Math.random()*4 + 1);
 		
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>( Arrays.asList(0,1,2,3,4,5));
 		
@@ -85,7 +80,7 @@ public class BrickBreaker extends JFrame implements ActionListener {
 			
 			int addLoc = possibleLocs.remove((int)(Math.random() * possibleLocs.size()));
 			
-		//	panelHolder[0][addLoc] = ;
+			panelHolder[0][addLoc].add(new Brick(curScore)) ;
 			
 			
 		}
