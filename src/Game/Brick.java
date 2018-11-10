@@ -8,25 +8,19 @@ import javax.swing.JPanel;
 public class Brick
 {
 	private int health;
-	private Color bColor;
 	private int xLoc;
 	private int yLoc;
+	
 	public static final int BRICK_WIDTH = 30;
 	public static final int BRICK_HEIGHT = 100;
 
-	public Brick(int h, int x, int y)
+	public Brick(int health, int xLoc, int y)
 	{
 
-		bColor = new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
-		health = h;
+		this.health = health;
 
-		xLoc = x;
-		yLoc = y;
-	}
-
-	public Color getColor()
-	{
-		return bColor;
+		this.xLoc = xLoc;
+		this.yLoc = y;
 	}
 
 	public int getXLoc()
