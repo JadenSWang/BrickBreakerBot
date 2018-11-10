@@ -7,6 +7,8 @@ public class Ball
 	private int xLoc;
 	private int yLoc;
 
+	public static final int DIAMETER = 15;
+
 	public Ball(int xLoc, int yLoc)
 	{
 		this.xLoc = xLoc;
@@ -29,13 +31,13 @@ public class Ball
 		return false;
 	}
 
-	public int nextX(Degree degree)
+	public int getX()
 	{
-		return 0;
+		return xLoc;
 	}
 
-	public int nextY()
+	public int getY()
 	{
-		return 0;
+		return yLoc;
 	}
 }
