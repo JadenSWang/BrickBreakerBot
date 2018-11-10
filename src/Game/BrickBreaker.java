@@ -35,8 +35,6 @@ public class BrickBreaker extends JFrame implements ActionListener
 		new BrickBreaker();
 		
 		//test
-		
-		sdfjklsdjfklsd
 
 	}
 
