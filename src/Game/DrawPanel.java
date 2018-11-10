@@ -7,8 +7,6 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import Erik_Sherman_FancyGame.Point;
-
 public class DrawPanel extends JPanel implements MouseListener
 {
 
@@ -19,7 +17,7 @@ public class DrawPanel extends JPanel implements MouseListener
 		allBricks = new ArrayList<Brick>();
 		this.addMouseListener(this);
 	}
-	
+
 	public void paintComponent(Graphics g)
 	{
 		super.paintComponent(g);
