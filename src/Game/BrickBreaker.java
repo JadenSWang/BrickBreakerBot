@@ -18,7 +18,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 	private JLabel score;
 	private int curScore;
 
-	private JPanel playArea; // area with all bricks and balls
+	private DrawPanel playArea; // area with all bricks and balls
 
 	public BrickBreaker()
 	{
@@ -48,16 +48,9 @@ public class BrickBreaker extends JFrame implements ActionListener
 
 		playArea.setLayout(null);
 
-		JPanel test = new JPanel();
-		test.setBackground(Color.CYAN);
-
-		test.setBounds(0,5,106,78);
-		
-		playArea.add(test);
-
 		add(playArea);
 
-	//	addRow();
+		addRow();
 		setVisible(true);
 
 	}
@@ -76,21 +69,33 @@ public class BrickBreaker extends JFrame implements ActionListener
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 			
 			int x = 0;
-			int y = 0;
+			int y = 5;
 			
-			if(addLoc != 0){
-				
+			if(addLoc != 0)
 				x = (Brick.BRICK_WIDTH  * addLoc) + (2*addLoc);
-				y = (Brick.BRICK_HEIGHT  * addLoc) + (2*addLoc);
 					
-			}
 			
-				playArea.allBricks.add(new Brick(curScore, x, y));
+			
+			//playArea.allBricks.add(new Brick(curScore, x, y));
 		
+			JPanel test = new JPanel();
+			test.setBackground(Color.CYAN);
 
+			test.setBounds(x,y,106,78);
+			
+			playArea.add(test);
+			
 		}
 
 		this.repaint();
+		
+		for(int i =0; i < playArea.allBricks.length; i++) {
+			
+			Brick toMove = playArea.allBricks.get(i);
+			
+			toMove.setYLoc(toMove.getYLoc() + Brick.BRICK_HEIGHT + 2);
+			
+		}
 
 	}
 

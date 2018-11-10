@@ -39,6 +39,18 @@ public class Brick
 	{
 		return yLoc;
 	}
+	
+	public void setYLoc(int y) {
+		
+		yLoc=  y;
+		
+	}
+	
+	public void setXLoc(int x) {
+		
+		xLoc = x;
+		
+	}
 
 	public int getHealth()
 	{
