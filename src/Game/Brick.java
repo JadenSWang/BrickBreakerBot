@@ -1,26 +1,31 @@
 package Game;
 
-import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 public class Brick
 {
 	private int health;
 	private int xLoc;
 	private int yLoc;
-	
+
 	public static final int BRICK_WIDTH = 30;
 	public static final int BRICK_HEIGHT = 100;
 
 	public Brick(int health, int xLoc, int y)
 	{
-
 		this.health = health;
 
 		this.xLoc = xLoc;
 		this.yLoc = y;
+	}
+
+	public boolean isHit(Ball ball)
+	{
+		if (xLoc > ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER))
+		{
+			if(xLoc > ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER)) {
+				
+			}
+		}
+		return false;
 	}
 
 	public int getXLoc()
