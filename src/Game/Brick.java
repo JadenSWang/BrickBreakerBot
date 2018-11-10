@@ -11,7 +11,7 @@ public class Brick
 
 	public Brick(int health, int xLoc, int y)
 	{
-		this.health = health;
+		this.setHealth(health);
 
 		this.xLoc = xLoc;
 		this.yLoc = y;
@@ -39,4 +39,15 @@ public class Brick
 	{
 		return yLoc;
 	}
+
+	public int getHealth()
+	{
+		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
 }
