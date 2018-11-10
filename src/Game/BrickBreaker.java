@@ -1,15 +1,18 @@
 package Game;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFrame;
-import javax.swing.Timer;
 
-public class BrickBreaker extends JFrame implements ActionListener
+public class BrickBreaker extends JFrame implements MouseListener
 {
 
-	private Timer timer;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1651012869660387679L;
 
 	public BrickBreaker()
 	{
@@ -33,15 +36,50 @@ public class BrickBreaker extends JFrame implements ActionListener
 
 	public void actionPerformed(ActionEvent arg0)
 	{
-		// TODO Auto-generated method stub
 
 	}
 
 	public static void main(String[] args)
 	{
-
 		new BrickBreaker();
 
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+	
+	
 
 }

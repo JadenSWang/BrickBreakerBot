@@ -28,4 +28,14 @@ public class Ball
 
 		return false;
 	}
+
+	public int nextX(Degree degree)
+	{
+		return 0;
+	}
+
+	public int nextY()
+	{
+		return 0;
+	}
 }
