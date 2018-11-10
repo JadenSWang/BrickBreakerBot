@@ -17,9 +17,11 @@ public class BrickBreaker extends JFrame implements ActionListener
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
-
+	
 	private DrawPanel playArea; // area with all bricks and balls
 
+	private static final int PLAY_LENGTH = 650;
+	
 	public BrickBreaker()
 	{
 
@@ -86,8 +88,6 @@ public class BrickBreaker extends JFrame implements ActionListener
 			playArea.add(test);
 			
 		}
-
-		this.repaint();
 		
 		ArrayList<Brick> allBricks = playArea.getAllBricks();
 		
@@ -98,8 +98,8 @@ public class BrickBreaker extends JFrame implements ActionListener
 			toMove.setYLoc(toMove.getYLoc() + Brick.BRICK_HEIGHT + 2);
 			
 		}
-
 		
+		repaint();
 		
 	}
 
