@@ -1,32 +1,33 @@
 package Game;
 
-import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 public class Brick
 {
 	private int health;
-	private Color bColor;
 	private int xLoc;
 	private int yLoc;
+
 	public static final int BRICK_WIDTH = 30;
 	public static final int BRICK_HEIGHT = 100;
 
-	public Brick(int h, int x, int y)
+	public Brick(int health, int xLoc, int y)
 	{
+		this.setHealth(health);
 
-		bColor = new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
-		health = h;
-
-		xLoc = x;
-		yLoc = y;
+		this.xLoc = xLoc;
+		this.yLoc = y;
 	}
 
-	public Color getColor()
+	public boolean isHit(Ball ball)
 	{
-		return bColor;
+		if (xLoc >= ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER))
+		{
+			if (yLoc >= ball.getY() && (yLoc + Brick.BRICK_WIDTH) <= (ball.getY() + Ball.DIAMETER))
+			{
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public int getXLoc()
@@ -38,4 +39,15 @@ public class Brick
 	{
 		return yLoc;
 	}
+
+	public int getHealth()
+	{
+		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
 }

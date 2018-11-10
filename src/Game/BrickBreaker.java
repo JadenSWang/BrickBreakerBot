@@ -11,7 +11,8 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-public class BrickBreaker extends JFrame implements ActionListener {
+public class BrickBreaker extends JFrame implements ActionListener
+{
 
 	private JLabel record;
 	private JLabel score;
@@ -19,7 +20,8 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 	private JPanel playArea; // area with all bricks and balls
 
-	public BrickBreaker() {
+	public BrickBreaker()
+	{
 
 		setSize(650, 900);
 		setTitle("Brick Breaker");
@@ -52,7 +54,7 @@ public class BrickBreaker extends JFrame implements ActionListener {
 		test.setBounds(0,5,106,78);
 		
 		playArea.add(test);
-		
+
 		add(playArea);
 
 	//	addRow();
@@ -61,13 +63,15 @@ public class BrickBreaker extends JFrame implements ActionListener {
 	}
 
 	// adds a new row of bricks
-	public void addRow() {
+	public void addRow()
+	{
 
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
 
-		for (int i = 0; i < numNewBricks; i++) {
+		for (int i = 0; i < numNewBricks; i++)
+		{
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 			
@@ -90,12 +94,14 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		new BrickBreaker();
 	}
