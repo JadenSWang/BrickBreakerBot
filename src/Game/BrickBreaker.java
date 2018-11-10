@@ -14,6 +14,10 @@ import javax.swing.*;
 public class BrickBreaker extends JFrame implements ActionListener
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 7978419291259704618L;
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
@@ -44,8 +48,8 @@ public class BrickBreaker extends JFrame implements ActionListener
 		add(score);
 
 		playArea = new DrawPanel();
-		playArea.setBackground(Color.white);
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
+		playArea.setBackground(Color.white);
 		playArea.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
 
 		playArea.setLayout(null);
@@ -54,7 +58,8 @@ public class BrickBreaker extends JFrame implements ActionListener
 
 		addRow();
 		setVisible(true);
-
+		
+		
 	}
 
 	// adds a new row of bricks
