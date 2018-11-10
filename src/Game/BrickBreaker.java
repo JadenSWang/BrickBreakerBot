@@ -18,7 +18,6 @@ public class BrickBreaker extends JFrame implements ActionListener {
 	private int curScore;
 
 	private JPanel playArea; // area with all bricks and balls
-	private JPanel[][] panelHolder; // allows me to change specific elements of the grid
 
 	public BrickBreaker() {
 
@@ -45,20 +44,18 @@ public class BrickBreaker extends JFrame implements ActionListener {
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
 		playArea.setBounds(0, 125, 650, 650);
 
-		playArea.setLayout(new GridLayout(8, 6, 2, 2));
+		playArea.setLayout(null);
 
-		panelHolder = new JPanel[8][6];
+		JPanel test = new JPanel();
+		test.setBackground(Color.CYAN);
 
-		for (int row = 0; row < panelHolder.length; row++) {
-			for (int col = 0; col < panelHolder[0].length; col++) {
-				panelHolder[row][col] = new JPanel();
-				playArea.add(panelHolder[row][col]);
-			}
-		}
-
+		test.setBounds(0,5,106,78);
+		
+		playArea.add(test);
+		
 		add(playArea);
 
-		addRow();
+	//	addRow();
 		setVisible(true);
 
 	}
@@ -73,8 +70,19 @@ public class BrickBreaker extends JFrame implements ActionListener {
 		for (int i = 0; i < numNewBricks; i++) {
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
-
-			panelHolder[0][addLoc].add(new Brick(curScore));
+			
+			int x = 0;
+			int y = 0;
+			
+			if(addLoc != 0){
+				
+				x = (Brick.BRICK_WIDTH  * addLoc) + (2*addLoc);
+				y = (Brick.BRICK_HEIGHT  * addLoc) + (2*addLoc);
+					
+			}
+			
+				playArea.allBricks.add(new Brick(curScore, x, y));
+		
 
 		}
 
