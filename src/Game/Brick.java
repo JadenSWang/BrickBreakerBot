@@ -1,41 +1,32 @@
 package Game;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Brick
+public class Brick extends JPanel
 {
 	private int health;
-	private Color bColor;
-	private int xLoc;
-	private int yLoc;
-	public static final int BRICK_WIDTH = 30;
-	public static final int BRICK_HEIGHT = 100;
-
-	public Brick(int h, int x, int y)
+	private JLabel healthLabel;
+	
+	public Brick(int h)
 	{
-
-		bColor = new Color((int) (Math.random() * 256), (int) (Math.random() * 256), (int) (Math.random() * 256));
+		
+		setLayout(new FlowLayout());
+		
 		health = h;
-
-		xLoc = x;
-		yLoc = y;
+		healthLabel = new JLabel("" + health);
+		
+		add(healthLabel);
+		
+		setForeground(Color.white);
+		setBackground(Color.orange);
+		
+		
+		setVisible(true);
+	
 	}
 
-	public Color getColor()
-	{
-		return bColor;
-	}
-
-	public int getXLoc()
-	{
-		return xLoc;
-	}
-
-	public int getYLoc()
-	{
-		return yLoc;
-	}
 }
