@@ -18,6 +18,9 @@ public class BrickBreaker extends JFrame implements ActionListener
 	private JLabel score;
 	private int curScore;
 
+	public static final int SCREEN_WIDTH = 650;
+	public static final int SCREEN_HEIGHT = 900;
+
 	private JPanel playArea; // area with all bricks and balls
 
 	private Timer timer;
@@ -29,7 +32,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 	// allows me to change specific elements of the grid
 	{
 
-		setSize(650, 900);
+		setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 		setTitle("Brick Breaker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(Color.white);
