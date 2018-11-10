@@ -89,9 +89,11 @@ public class BrickBreaker extends JFrame implements ActionListener
 
 		this.repaint();
 		
-		for(int i =0; i < playArea.allBricks.length; i++) {
+		ArrayList<Brick> allBricks = playArea.getAllBricks();
+		
+		for(int i =0; i < allBricks.size(); i++) {
 			
-			Brick toMove = playArea.allBricks.get(i);
+			Brick toMove = allBricks.get(i);
 			
 			toMove.setYLoc(toMove.getYLoc() + Brick.BRICK_HEIGHT + 2);
 			
