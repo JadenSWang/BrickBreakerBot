@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 public class DrawPanel extends JPanel implements MouseListener
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
 
 	public DrawPanel()
