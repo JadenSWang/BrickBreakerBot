@@ -41,6 +41,16 @@ public class DrawPanel extends JPanel implements MouseListener
 		}
 	}
 
+	public ArrayList<Brick> getAllBricks()
+	{
+		return this.allBricks;
+	}
+
+	public ArrayList<Ball> getAllBalls()
+	{
+		return this.allBalls;
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
