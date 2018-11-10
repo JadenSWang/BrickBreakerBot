@@ -11,19 +11,17 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-public class BrickBreaker extends JFrame implements ActionListener
-{
+public class BrickBreaker extends JFrame implements ActionListener {
 
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
-	
+
 	private DrawPanel playArea; // area with all bricks and balls
 
 	protected static final int PLAY_LENGTH = 650;
-	
-	public BrickBreaker()
-	{
+
+	public BrickBreaker() {
 
 		setSize(650, 900);
 		setTitle("Brick Breaker");
@@ -53,64 +51,51 @@ public class BrickBreaker extends JFrame implements ActionListener
 		add(playArea);
 
 		addRow();
+
 		setVisible(true);
 
 	}
 
 	// adds a new row of bricks
-	public void addRow()
-	{
+	public void addRow() {
 
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
 
-		for (int i = 0; i < numNewBricks; i++)
-		{
+		for (int i = 0; i < numNewBricks; i++) {
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
-			
+
 			int x = 0;
 			int y = 5;
-			
-			if(addLoc != 0)
-				x = (Brick.BRICK_WIDTH  * addLoc) + (2*addLoc);
-					
-			
-			
-			//playArea.allBricks.add(new Brick(curScore, x, y));
-		
-			JPanel test = new JPanel();
-			test.setBackground(Color.CYAN);
 
-			test.setBounds(x,y,106,78);
-			
-			playArea.add(test);
-			
+			if (addLoc != 0)
+				x = (Brick.BRICK_WIDTH * addLoc) + (2 * addLoc);
+
+			playArea.getAllBricks().add(new Brick(curScore, x, y));
+
 		}
-		
-		ArrayList<Brick> allBricks = playArea.getAllBricks();
-		
-		for(int i =0; i < allBricks.size(); i++) {
-			
-			Brick toMove = allBricks.get(i);
-			
-			toMove.setYLoc(toMove.getYLoc() + Brick.BRICK_HEIGHT + 2);
-			
-		}
-		
+
+		moveDown();
 		repaint();
-		
+
 	}
 
-	public void actionPerformed(ActionEvent arg0)
-	{
+	// moves all bricks down one row
+	public void moveDown() {
+
+		for (Brick b : playArea.getAllBricks())
+			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
+
+	}
+
+	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 
 		new BrickBreaker();
 	}
