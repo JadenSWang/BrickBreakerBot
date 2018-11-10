@@ -6,12 +6,12 @@ public class Brick
 	private int xLoc;
 	private int yLoc;
 
-	public static final int BRICK_WIDTH = 30;
-	public static final int BRICK_HEIGHT = 100;
+	public static final int BRICK_WIDTH = 106;
+	public static final int BRICK_HEIGHT = 78;
 
 	public Brick(int health, int xLoc, int y)
 	{
-		this.health = health;
+		this.setHealth(health);
 
 		this.xLoc = xLoc;
 		this.yLoc = y;
@@ -39,4 +39,15 @@ public class Brick
 	{
 		return yLoc;
 	}
+
+	public int getHealth()
+	{
+		return health;
+	}
+
+	public void setHealth(int health)
+	{
+		this.health = health;
+	}
+
 }

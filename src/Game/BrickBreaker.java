@@ -11,16 +11,17 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-public class BrickBreaker extends JFrame implements ActionListener {
+public class BrickBreaker extends JFrame implements ActionListener
+{
 
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
 
 	private JPanel playArea; // area with all bricks and balls
-	private JPanel[][] panelHolder; // allows me to change specific elements of the grid
 
-	public BrickBreaker() {
+	public BrickBreaker()
+	{
 
 		setSize(650, 900);
 		setTitle("Brick Breaker");
@@ -45,36 +46,47 @@ public class BrickBreaker extends JFrame implements ActionListener {
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
 		playArea.setBounds(0, 125, 650, 650);
 
-		playArea.setLayout(new GridLayout(8, 6, 2, 2));
+		playArea.setLayout(null);
 
-		panelHolder = new JPanel[8][6];
+		JPanel test = new JPanel();
+		test.setBackground(Color.CYAN);
 
-		for (int row = 0; row < panelHolder.length; row++) {
-			for (int col = 0; col < panelHolder[0].length; col++) {
-				panelHolder[row][col] = new JPanel();
-				playArea.add(panelHolder[row][col]);
-			}
-		}
+		test.setBounds(0,5,106,78);
+		
+		playArea.add(test);
 
 		add(playArea);
 
-		addRow();
+	//	addRow();
 		setVisible(true);
 
 	}
 
 	// adds a new row of bricks
-	public void addRow() {
+	public void addRow()
+	{
 
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
 
-		for (int i = 0; i < numNewBricks; i++) {
+		for (int i = 0; i < numNewBricks; i++)
+		{
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
-
-			panelHolder[0][addLoc].add(new Brick(curScore));
+			
+			int x = 0;
+			int y = 0;
+			
+			if(addLoc != 0){
+				
+				x = (Brick.BRICK_WIDTH  * addLoc) + (2*addLoc);
+				y = (Brick.BRICK_HEIGHT  * addLoc) + (2*addLoc);
+					
+			}
+			
+				playArea.allBricks.add(new Brick(curScore, x, y));
+		
 
 		}
 
@@ -82,12 +94,14 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		new BrickBreaker();
 	}
