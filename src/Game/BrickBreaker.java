@@ -41,7 +41,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 		add(record);
 		add(score);
 
-		playArea = new JPanel();
+		playArea = new DrawPanel();
 		playArea.setBackground(Color.white);
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
 		playArea.setBounds(0, 125, 650, 650);
@@ -99,6 +99,8 @@ public class BrickBreaker extends JFrame implements ActionListener
 			
 		}
 
+		
+		
 	}
 
 	public void actionPerformed(ActionEvent arg0)

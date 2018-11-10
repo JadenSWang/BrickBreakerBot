@@ -20,6 +20,7 @@ public class DrawPanel extends JPanel implements MouseListener
 
 	public DrawPanel()
 	{
+		allBalls = new ArrayList<Ball>();
 		allBricks = new ArrayList<Brick>();
 		this.addMouseListener(this);
 	}
