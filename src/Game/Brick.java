@@ -19,12 +19,14 @@ public class Brick
 
 	public boolean isHit(Ball ball)
 	{
-		if (xLoc > ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER))
+		if (xLoc >= ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER))
 		{
-			if(xLoc > ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER)) {
-				
+			if (yLoc >= ball.getY() && (yLoc + Brick.BRICK_WIDTH) <= (ball.getY() + Ball.DIAMETER))
+			{
+				return true;
 			}
 		}
+
 		return false;
 	}
 
