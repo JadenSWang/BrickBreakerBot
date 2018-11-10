@@ -4,23 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 
-public class BrickBreaker extends JFrame implements MouseListener
+public class BrickBreaker extends JFrame implements ActionListener
 {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3222668475472799829L;
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
@@ -87,7 +80,9 @@ public class BrickBreaker extends JFrame implements MouseListener
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 
 			panelHolder[0][addLoc] = new Brick(curScore);
+
 		}
+
 	}
 
 	public void actionPerformed(ActionEvent arg0)
@@ -100,41 +95,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 	{
 
 		new BrickBreaker();
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
 	}
 
 }
