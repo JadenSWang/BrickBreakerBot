@@ -6,8 +6,8 @@ public class Brick
 	private int xLoc;
 	private int yLoc;
 
-	public static final int BRICK_WIDTH = 106;
-	public static final int BRICK_HEIGHT = 78;
+	public static final int BRICK_WIDTH = (BrickBreaker.PLAY_LENGTH - 10) / 6;
+	public static final int BRICK_HEIGHT = (BrickBreaker.PLAY_LENGTH - 24) / 8;
 
 	public Brick(int health, int xLoc, int y)
 	{
@@ -39,17 +39,19 @@ public class Brick
 	{
 		return yLoc;
 	}
-	
-	public void setYLoc(int y) {
-		
-		yLoc=  y;
-		
+
+	public void setYLoc(int y)
+	{
+
+		yLoc = y;
+
 	}
-	
-	public void setXLoc(int x) {
-		
+
+	public void setXLoc(int x)
+	{
+
 		xLoc = x;
-		
+
 	}
 
 	public int getHealth()

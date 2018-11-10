@@ -20,7 +20,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 	
 	private DrawPanel playArea; // area with all bricks and balls
 
-	private static final int PLAY_LENGTH = 650;
+	protected static final int PLAY_LENGTH = 650;
 	
 	public BrickBreaker()
 	{
@@ -46,7 +46,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 		playArea = new DrawPanel();
 		playArea.setBackground(Color.white);
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
-		playArea.setBounds(0, 125, 650, 650);
+		playArea.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
 
 		playArea.setLayout(null);
 
