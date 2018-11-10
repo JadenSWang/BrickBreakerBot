@@ -23,6 +23,7 @@ public class Ball
 			xLoc = newXLoc;
 			yLoc = newYLoc;
 
+			
 			return true;
 		}
 
