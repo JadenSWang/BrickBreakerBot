@@ -17,11 +17,11 @@ public class BrickBreaker extends JFrame implements ActionListener
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
-	
+
 	private DrawPanel playArea; // area with all bricks and balls
 
 	protected static final int PLAY_LENGTH = 650;
-	
+
 	public BrickBreaker()
 	{
 
@@ -60,7 +60,6 @@ public class BrickBreaker extends JFrame implements ActionListener
 	// adds a new row of bricks
 	public void addRow()
 	{
-
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
@@ -69,38 +68,34 @@ public class BrickBreaker extends JFrame implements ActionListener
 		{
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
-			
+
 			int x = 0;
 			int y = 5;
-			
-			if(addLoc != 0)
-				x = (Brick.BRICK_WIDTH  * addLoc) + (2*addLoc);
-					
-			
-			
-			//playArea.allBricks.add(new Brick(curScore, x, y));
-		
+
+			if (addLoc != 0)
+				x = (Brick.BRICK_WIDTH * addLoc) + (2 * addLoc);
+
+			// playArea.allBricks.add(new Brick(curScore, x, y));
+
 			JPanel test = new JPanel();
 			test.setBackground(Color.CYAN);
 
-			test.setBounds(x,y,106,78);
-			
+			test.setBounds(x, y, 106, 78);
+
 			playArea.add(test);
-			
+
 		}
-		
+
 		ArrayList<Brick> allBricks = playArea.getAllBricks();
-		
-		for(int i =0; i < allBricks.size(); i++) {
-			
+
+		for (int i = 0; i < allBricks.size(); i++)
+		{
+
 			Brick toMove = allBricks.get(i);
-			
+
 			toMove.setYLoc(toMove.getYLoc() + Brick.BRICK_HEIGHT + 2);
-			
+
 		}
-		
-		repaint();
-		
 	}
 
 	public void actionPerformed(ActionEvent arg0)
