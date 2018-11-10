@@ -79,7 +79,7 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 		moveDown();
 		repaint();
-
+//hi shtieng
 	}
 
 	// moves all bricks down one row
