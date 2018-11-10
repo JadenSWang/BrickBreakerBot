@@ -1,5 +1,6 @@
 package Game;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -15,6 +16,7 @@ public class DrawPanel extends JPanel implements MouseListener
 	 */
 	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
+	private ArrayList<Ball> allBalls;
 
 	public DrawPanel()
 	{
@@ -26,12 +28,18 @@ public class DrawPanel extends JPanel implements MouseListener
 	{
 		super.paintComponent(g);
 
+		g.setColor(Color.ORANGE);
 		for (Brick next : allBricks)
 		{
-			g.setColor(next.getColor());
 			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-
 		}
+
+		g.setColor(Color.GREEN);
+		for (Ball next : allBalls)
+		{
+			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
+		}
+		
 	}
 
 	@Override
