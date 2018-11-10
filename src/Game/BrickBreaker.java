@@ -21,7 +21,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 	public static final int SCREEN_WIDTH = 650;
 	public static final int SCREEN_HEIGHT = 900;
 
-	private JPanel playArea; // area with all bricks and balls
+	private DrawPanel playArea; // area with all bricks and balls
 
 	private Timer timer;
 
@@ -50,7 +50,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 		add(record);
 		add(score);
 
-		playArea = new JPanel();
+		playArea = new DrawPanel();
 		playArea.setBackground(Color.white);
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
 		playArea.setBounds(0, 125, 650, 650);

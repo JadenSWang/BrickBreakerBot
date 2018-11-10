@@ -5,7 +5,7 @@ import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Brick extends JPanel
+public class Brick
 {
 
 	private int health;
