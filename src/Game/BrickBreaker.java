@@ -17,15 +17,7 @@ public class BrickBreaker extends JFrame implements ActionListener
 		setSize(650, 900);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
-		/*
-		 * canvas = new DrawPanel(); canvas.setBounds(0, 0, 300, 575);
-		 * canvas.setBackground(Color.white);
-		 * canvas.setBorder(BorderFactory.createLineBorder(Color.black));
-		 * 
-		 * add(canvas);
-		 * 
-		 * canvas.repaint();
-		 */
+
 
 		setVisible(true);
 
@@ -41,6 +33,9 @@ public class BrickBreaker extends JFrame implements ActionListener
 	{
 
 		new BrickBreaker();
+		
+		//test
+		
 
 	}
 
