@@ -39,6 +39,7 @@ public class DrawPanel extends JPanel implements MouseListener
 		{
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
+		
 	}
 
 	@Override
