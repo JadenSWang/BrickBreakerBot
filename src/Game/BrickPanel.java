@@ -63,19 +63,24 @@ public class BrickPanel extends DrawPanel
 		Iterator<Brick> brickIter = allBricks.iterator();
 		while (brickIter.hasNext()) {
 		
-			Brick next= brickIter.next();
-
+			Brick next = brickIter.next();
+/*
 			if(next.getHealth() == 0) {
 
-				this.remove(next.getPic());
+				//JPanel cover = new JPanel();
+
+				//cover.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				//add(cover);
 				
+				this.remove(next.getPic());
+				this.revalidate();
+				this.repaint();	
 				
 				brickIter.remove();
-				
 			}
 
 			else {
-
+*/
 				int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
 
 				PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[0], next);
@@ -87,7 +92,7 @@ public class BrickPanel extends DrawPanel
 
 				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 
-			}
+		//	}
 
 
 		}
@@ -150,6 +155,13 @@ public class BrickPanel extends DrawPanel
 			{
 				int hitDirection = brick.isHit(ball);
 
+				if(hitDirection != 0 && brick.getHealth() == 0) {
+					
+					this.remove(brick.getPic());
+				
+				}
+					
+				
 				if (hitDirection == 1)
 				{
 					// hit horizontal wall
