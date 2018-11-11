@@ -18,7 +18,6 @@ public class TargettingDrawPanel extends PaintablePanel
 
 	public TargettingDrawPanel()
 	{
-
 	}
 
 	public void paintComponent(Graphics g)
