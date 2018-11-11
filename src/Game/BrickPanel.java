@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -148,8 +149,10 @@ public class BrickPanel extends DrawPanel
 		}
 	}
 
-	public void shootBall(int mouseX, int mouseY)
+	public void shootBall()
 	{
+		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
 		int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
 		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
 		int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));

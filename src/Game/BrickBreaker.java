@@ -2,13 +2,11 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -80,11 +78,21 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		this.addMouseListener(this);
 
-		stepTimer = new Timer(10, new ActionListener()
+		Timer moveBallTimer = new Timer(10, new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
+				playArea.repaint();
+			}
+		});
+
+		targettingTimer = new Timer(1, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				targetingPanel.setPointsVector(startingBallLoc);
 				targetingPanel.repaint();
 				playArea.repaint();
 			}
@@ -98,20 +106,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 5,
 					playArea.getAllBalls().peek().getY() + 5);
-			targettingTimer = new Timer(1, new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent arg0)
-				{
-					targetingPanel.setPointsVector(startingBallLoc);
-					targetingPanel.repaint();
-					playArea.repaint();
-				}
-			});
 
 			targettingTimer.start();
-
-			new Scanner(System.in).nextLine();
 		}
 
 		System.exit(-1);
@@ -125,8 +121,17 @@ public class BrickBreaker extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-		playArea.shootBall(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
-		playArea.step();
+
+		moveBall();
+	}
+
+	private void moveBall()
+	{
+		playArea.addRow();
+		// targetingPanel.repaint();
+		// playArea.repaint();
+		// playArea.shootBall();
+		// playArea.step();
 	}
 
 	@Override
