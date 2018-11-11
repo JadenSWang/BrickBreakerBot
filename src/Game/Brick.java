@@ -19,15 +19,9 @@ public class Brick
 
 	public boolean isHit(Ball ball)
 	{
-		if (xLoc >= ball.getX() && (xLoc + Brick.BRICK_WIDTH) <= (ball.getX() + Ball.DIAMETER))
-		{
-			if (yLoc >= ball.getY() && (yLoc + Brick.BRICK_WIDTH) <= (ball.getY() + Ball.DIAMETER))
-			{
-				return true;
-			}
-		}
-
-		return false;
+		return (ball.getX() >= this.xLoc && ball.getX() <= this.xLoc + BRICK_WIDTH)
+				|| (ball.getX() + Ball.DIAMETER >= this.xLoc && ball.getX() + Ball.DIAMETER <= this.xLoc + BRICK_WIDTH) && (ball.getY() >= this.yLoc && ball.getY() <= this.yLoc + BRICK_HEIGHT)
+				|| (ball.getY() + Ball.DIAMETER >= this.yLoc && ball.getY() + Ball.DIAMETER <= this.yLoc + BRICK_HEIGHT);
 	}
 
 	public int getXLoc()
@@ -63,5 +57,4 @@ public class Brick
 	{
 		this.health = health;
 	}
-
 }
