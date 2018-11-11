@@ -25,7 +25,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private JLabel score;
 	private boolean isOver = true;
 
-	private DrawPanel playArea; // area with all bricks and balls
+	private BrickPanel playArea; // area with all bricks and balls
 
 	private boolean newRecord;
 
@@ -42,7 +42,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 		getContentPane().setBackground(Color.white);
 		setLayout(null);
 
-		playArea = new DrawPanel();
+		playArea = new BrickPanel();
 		playArea.setBackground(Color.white);
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
 		playArea.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
