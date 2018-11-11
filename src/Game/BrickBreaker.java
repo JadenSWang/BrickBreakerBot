@@ -78,6 +78,10 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		setVisible(true);
 		playArea.addRow();
+<<<<<<< HEAD
+=======
+		//playArea.addRow();
+>>>>>>> d579ab29b579e127f641d4ed0ab01ddeaf47b831
 
 		this.addMouseListener(this);
 
