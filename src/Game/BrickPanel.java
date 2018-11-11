@@ -32,9 +32,6 @@ public class BrickPanel extends DrawPanel
 	private BufferedImage[] brickColors;
 	private ArrayList<JPanel> allBrickPics;
 
-	private Point startingBallLoc;
-	private boolean ballsInMotion;
-
 	public BrickPanel()
 	{
 		allBalls = new ArrayList<Ball>();
@@ -61,17 +58,6 @@ public class BrickPanel extends DrawPanel
 	{
 		super.paintComponent(g);
 
-		if (!ballsInMotion)
-		{
-			if (startingBallLoc == null)
-			{
-				throw new IllegalStateException("Must set starting point first");
-			}
-
-			Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
-			g.drawLine(mouseLoc.x, mouseLoc.y, startingBallLoc.x, startingBallLoc.y);
-		}
-
 		for (Brick next : allBricks)
 		{
 			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
@@ -93,16 +79,6 @@ public class BrickPanel extends DrawPanel
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
 
-	}
-
-	public void movingFlipper()
-	{
-		ballsInMotion = !ballsInMotion;
-	}
-
-	public void setPointsVector(Point startingBallLoc)
-	{
-		this.startingBallLoc = startingBallLoc;
 	}
 
 	// adds a new row of bricks
