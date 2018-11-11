@@ -105,6 +105,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 						stepTimer.stop();
 					}
 				}
+
 				playArea.repaint();
 			}
 		});

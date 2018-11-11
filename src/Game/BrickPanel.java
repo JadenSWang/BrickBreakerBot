@@ -58,42 +58,38 @@ public class BrickPanel extends DrawPanel
 	{
 		super.paintComponent(g);
 
-		g.setColor(new Color(255,255,255));
+		g.setColor(new Color(255, 255, 255));
 
-		Iterator<Brick> brickIter = allBricks.iterator();
-		while (brickIter.hasNext()) {
-		
-			Brick next = brickIter.next();
-/*
-			if(next.getHealth() == 0) {
+		for (int i = 0; i < allBricks.size(); i++)
+		{
+			if (allBricks.get(i).getHealth() == 0)
+			{
+				// JPanel cover = new JPanel();
 
-				//JPanel cover = new JPanel();
+				// cover.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH,
+				// Brick.BRICK_HEIGHT);
+				// add(cover);
 
-				//cover.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-				//add(cover);
-				
-				this.remove(next.getPic());
-				this.revalidate();
-				this.repaint();	
-				
-				brickIter.remove();
+				allBricks.remove(allBricks.get(i));
+				allBrickPics.remove(allBricks.remove(i).getPic());
 			}
 
-			else {
-*/
-				int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
+			else
+			{
+				int colorLoc = (int) (allBricks.get(i).getHealth() / ((double) (curScore) / 7));
 
-				PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[0], next);
+				PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[0], allBricks.get(i));
 
-				pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				pic.setBounds(allBricks.get(i).getXLoc(), allBricks.get(i).getYLoc(), Brick.BRICK_WIDTH,
+						Brick.BRICK_HEIGHT);
 				add(pic);
 				allBrickPics.add(pic);
-				next.setPic(pic);
+				allBricks.get(i).setPic(pic);
 
-				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				g.fillRect(allBricks.get(i).getXLoc(), allBricks.get(i).getYLoc(), Brick.BRICK_WIDTH,
+						Brick.BRICK_HEIGHT);
 
-		//	}
-
+			}
 
 		}
 
@@ -140,28 +136,27 @@ public class BrickPanel extends DrawPanel
 
 	public boolean step(int xMouseLoc, int yMouseLoc)
 	{
-//		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
-//		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
-//		int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
-//		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
-//		int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));
-//		int yVel = 10;
+		// int mouseX = MouseInfo.getPointerInfo().getLocation().x;
+		// int mouseY = MouseInfo.getPointerInfo().getLocation().y;
+		// int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
+		// int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
+		// int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));
+		// int yVel = 10;
 
 		for (Ball ball : allBalls)
 		{
-//			ball.setVelocity(xVel, yVel);
+			// ball.setVelocity(xVel, yVel);
 			ball.updateLoc();
 			for (Brick brick : allBricks)
 			{
 				int hitDirection = brick.isHit(ball);
 
-				if(hitDirection != 0 && brick.getHealth() == 0) {
-					
+				if (hitDirection != 0 && brick.getHealth() == 0)
+				{
+
 					this.remove(brick.getPic());
-				
 				}
-					
-				
+
 				if (hitDirection == 1)
 				{
 					// hit horizontal wall
@@ -185,7 +180,7 @@ public class BrickPanel extends DrawPanel
 				{
 					ball.reverseYDir();
 				}
-				
+
 				if (ball.getY() + 15 >= BrickBreaker.PLAY_LENGTH)
 				{
 					ball.reverseYDir();
