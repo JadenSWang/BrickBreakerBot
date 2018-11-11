@@ -12,12 +12,11 @@ public class TargettingPanel extends BrickPanel
 	 */
 	private static final long serialVersionUID = -5959200934777656628L;
 	private Point startingBallLoc;
-	private boolean ballsInMotion;
 
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		if (!ballsInMotion)
+		if (!super.ballsinMotion)
 		{
 			if (startingBallLoc == null)
 			{
@@ -31,7 +30,7 @@ public class TargettingPanel extends BrickPanel
 
 	public void setBallInMotion()
 	{
-		ballsInMotion = true;
+		ballsinMotion = true;
 	}
 
 	public void setPointsVector(Point startingBallLoc)
@@ -41,6 +40,6 @@ public class TargettingPanel extends BrickPanel
 
 	public boolean ballsInMotion()
 	{
-		return ballsInMotion;
+		return ballsinMotion;
 	}
 }

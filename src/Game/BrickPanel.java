@@ -9,86 +9,90 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class BrickPanel extends DrawPanel {
+public class BrickPanel extends DrawPanel
+{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
-	private ArrayList<Ball> allBalls;
+	private Queue<Ball> allBalls;
 	private int curScore = 1;
 
 	private BufferedImage[] brickColors;
 	private ArrayList<JPanel> allBrickPics;
 
-	public BrickPanel() {
-		allBalls = new ArrayList<Ball>();
+	public BrickPanel()
+	{
+		allBalls = new LinkedList<Ball>();
 		allBricks = new ArrayList<Brick>();
 		allBrickPics = new ArrayList<JPanel>();
 		brickColors = new BufferedImage[7];
 
-		try {
-
+		try
+		{
 			for (int i = 0; i < 7; i++)
 				brickColors[i] = ImageIO.read(new File("Color_" + i + ".png"));
 
-		} catch (IOException ioe) {
+		} catch (IOException ioe)
+		{
 			System.out.println("Could not read in the pic");
 			System.exit(0);
 		}
 
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21));
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21, 1, -1));
 	}
 
-	public void paintComponent(Graphics g) {
+	public void paintComponent(Graphics g)
+	{
 		super.paintComponent(g);
 
-		Iterator<Brick> brickIter = allBricks.iterator();
+		for (Brick next : allBricks)
+		{
 
-		while (brickIter.hasNext()) {
+			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
 
-			Brick next = brickIter.next();
+			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
 
-			if (next.getHealth() == 0)
-				brickIter.remove();
-			
-			else {
-				int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
+			pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+			add(pic);
+			allBrickPics.add(pic);
 
-				PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
-
-				pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-				add(pic);
-				allBrickPics.add(pic);
-
-				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-			}
-
+			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 		}
 
 		// shade of blue
 		g.setColor(new Color(99, 205, 255));
 
-		for (Ball next : allBalls) {
+		for (Ball next : allBalls)
+		{
+			System.out.println(next.getX() + " " + next.getY());
+			Random rand = new Random();
 
+			g.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
+
 	}
 
 	// adds a new row of bricks
-	public void addRow() {
+	public void addRow()
+	{
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
 
-		for (int i = 0; i < numNewBricks; i++) {
+		for (int i = 0; i < numNewBricks; i++)
+		{
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 
@@ -108,44 +112,71 @@ public class BrickPanel extends DrawPanel {
 		repaint();
 	}
 
-	public void step() {
-		for (Ball ball : allBalls) {
+	public void step()
+	{
+		for (Ball ball : allBalls)
+		{
 			ball.updateLoc();
-			for (Brick brick : allBricks) {
+			for (Brick brick : allBricks)
+			{
 				int hitDirection = brick.isHit(ball);
 
-				if (hitDirection == 1) {
+				if (hitDirection == 1)
+				{
 					// hit horizontal wall
 
 					ball.reverseYDir();
-				} else if (hitDirection == 2) {
+				} else if (hitDirection == 2)
+				{
 					// hit vertically
 
 					ball.reverseXDir();
-				} else if (hitDirection == 3) {
+				} else if (hitDirection == 3)
+				{
 					ball.reverseBothDir();
 				}
 
-				if (ball.getX() >= BrickBreaker.PLAY_LENGTH || ball.getX() <= 0) {
+				if (ball.getX() >= BrickBreaker.PLAY_LENGTH || ball.getX() <= 0)
+				{
 					ball.reverseXDir();
 				}
-				if (ball.getY() <= 0) {
+				if (ball.getY() <= 0)
+				{
 					ball.reverseYDir();
 				}
 			}
 		}
 	}
 
-	public int getCurScore() {
+	public void shootBall(int mouseX, int mouseY)
+	{
+		int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
+		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
+		int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));
+		int yVel = 10;
+
+		System.out.println("x vel: " + xVel + " y Vel: " + yVel);
+		for (Ball ball : allBalls)
+		{
+			System.out.println(ball.getX() + " " + ball.getY());
+		}
+
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
+	}
+
+	public int getCurScore()
+	{
 		return curScore;
 	}
 
 	// moves all bricks down one row
-	public void moveDown() {
+	public void moveDown()
+	{
 		for (Brick b : allBricks)
 			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
 
-		for (int i = 0; i < allBrickPics.size(); i++) {
+		for (int i = 0; i < allBrickPics.size(); i++)
+		{
 
 			JPanel j = allBrickPics.get(i);
 
@@ -153,15 +184,18 @@ public class BrickPanel extends DrawPanel {
 		}
 	}
 
-	public ArrayList<Brick> getAllBricks() {
+	public ArrayList<Brick> getAllBricks()
+	{
 		return this.allBricks;
 	}
 
-	public ArrayList<Ball> getAllBalls() {
+	public Queue<Ball> getAllBalls()
+	{
 		return this.allBalls;
 	}
 
-	public class PicPanel extends JPanel {
+	public class PicPanel extends JPanel
+	{
 
 		private int width;
 		private int height;
@@ -169,7 +203,8 @@ public class BrickPanel extends DrawPanel {
 		private Brick thisBrick;
 		private JLabel healthLabel;
 
-		public PicPanel(int w, int h, BufferedImage bI) {
+		public PicPanel(int w, int h, BufferedImage bI)
+		{
 
 			width = w;
 			height = h;
@@ -177,7 +212,8 @@ public class BrickPanel extends DrawPanel {
 
 		}
 
-		public PicPanel(int w, int h, BufferedImage bI, Brick b) {
+		public PicPanel(int w, int h, BufferedImage bI, Brick b)
+		{
 
 			this(w, h, bI);
 
@@ -193,19 +229,22 @@ public class BrickPanel extends DrawPanel {
 
 		}
 
-		public void setLabel() {
+		public void setLabel()
+		{
 
 			healthLabel.setText(thisBrick.getHealth() + "");
 
 		}
 
 		// called by the machine
-		public Dimension getPreferredSize() {
+		public Dimension getPreferredSize()
+		{
 			return new Dimension(width, height);
 		}
 
 		// called automatically by repaint
-		public void paintComponent(Graphics g) {
+		public void paintComponent(Graphics g)
+		{
 
 			super.paintComponent(g);
 

@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private BrickPanel playArea; // area with all bricks and balls
 	private TargettingPanel targetingPanel;
 	private Timer stepTimer;
+	private Timer targettingTimer;
 
 	private boolean newRecord;
 
@@ -75,18 +77,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		setVisible(true);
 		playArea.addRow();
-		//playArea.addRow();
 
 		this.addMouseListener(this);
-
-		try
-		{
-			Thread.sleep(1000);
-		} catch (InterruptedException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		stepTimer = new Timer(10, new ActionListener()
 		{
@@ -96,22 +88,30 @@ public class BrickBreaker extends JFrame implements MouseListener
 				targetingPanel.repaint();
 				playArea.repaint();
 			}
-
 		});
+
+		int i = 0;
 
 		while (isOver)
 		{
 			score.setText("SCORE    : " + playArea.getCurScore());
 
-			// set the location of the current ball
-			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 7,
-					playArea.getAllBalls().get(0).getY() + 7);
-			targetingPanel.setPointsVector(startingBallLoc);
-
-			if (!targetingPanel.ballsInMotion())
+			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 5,
+					playArea.getAllBalls().peek().getY() + 5);
+			targettingTimer = new Timer(1, new ActionListener()
 			{
-				stepTimer.start();
-			}
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
+					targetingPanel.setPointsVector(startingBallLoc);
+					targetingPanel.repaint();
+					playArea.repaint();
+				}
+			});
+
+			targettingTimer.start();
+
+			new Scanner(System.in).nextLine();
 		}
 
 		System.exit(-1);
@@ -125,8 +125,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-		targetingPanel.setBallInMotion();
-		stepTimer.stop();
+		playArea.shootBall(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
+		playArea.step();
 	}
 
 	@Override

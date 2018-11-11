@@ -17,79 +17,70 @@ public class Brick
 		this.yLoc = y;
 	}
 
-	// 0 is not hit, 1 is hit horizontal wall, 2 is hit vertical wall, 3 is hit corner
+	// 0 is not hit, 1 is hit horizontal wall, 2 is hit vertical wall, 3 is hit
+	// corner
 	public int isHit(Ball ball)
 	{
 		int brickLeft = this.xLoc;
 		int brickRight = this.xLoc + BRICK_WIDTH;
 		int brickTop = this.yLoc;
 		int brickBottom = this.yLoc + BRICK_HEIGHT;
-		
+
 		int ballLeft = ball.getX();
 		int ballRight = ball.getX() + Ball.DIAMETER;
 		int ballTop = ball.getY();
 		int ballBottom = ball.getY() + Ball.DIAMETER;
-		
-		
-		boolean hitX = ballLeft >= brickLeft && ballLeft <= brickRight || ballRight >= brickLeft && ballRight <= brickLeft;
-		boolean hitY = ballTop >= brickTop && ballTop <= brickBottom || ballBottom >= brickTop && ballBottom <= brickBottom;
-		
+
+		boolean hitX = ballLeft >= brickLeft && ballLeft <= brickRight
+				|| ballRight >= brickLeft && ballRight <= brickLeft;
+		boolean hitY = ballTop >= brickTop && ballTop <= brickBottom
+				|| ballBottom >= brickTop && ballBottom <= brickBottom;
+
 		boolean hit = hitX && hitY;
-		
+
 		int yDisp;
 		int xDisp;
-		
-		//if the ball is traveling upwards
-		if(ball.getVel().yV < 0)
+
+		// if the ball is traveling upwards
+		if (ball.getVel().yV < 0)
 		{
 			yDisp = ballTop - brickBottom;
 		}
-		
-		//if the ball is traveling downwards
+
+		// if the ball is traveling downwards
 		else
 		{
 			yDisp = brickTop - ballBottom;
 		}
-		
-		//if the ball is traveling right
-		if(ball.getVel().xV > 0)
+
+		// if the ball is traveling right
+		if (ball.getVel().xV > 0)
 		{
 			xDisp = brickLeft - ballRight;
 		}
-		
-		//if the ball is traveling left
+
+		// if the ball is traveling left
 		else
 		{
 			xDisp = ballLeft - brickRight;
 		}
-		
-//		int xDisp = Math.min(Math.abs(this.xLoc - ball.getX()), Math.abs(this.xLoc - (ball.getX() + BRICK_WIDTH)));
-//		int yDisp = Math.min(Math.abs(this.yLoc - ball.getY()), Math.abs(this.yLoc - (ball.getY() + BRICK_HEIGHT)));
-		
-		if(!hit)
+
+		if (!hit)
 		{
 			return 0;
-		}
-		else
+		} else
 		{
-			System.out.println("hit. Ball x:" + ball.getX() + " brick x: " +  this.xLoc + " ball y: " + ball.getY() + " brick y: " + this.yLoc);
-			System.out.println("x disp: " + xDisp + " y disp: " + yDisp);
+			this.health--;
 		}
 
-		
 		if (Math.abs(Math.abs(xDisp) - Math.abs(yDisp)) <= 2)
 		{
-			System.out.println("hit both. " + (Math.abs(xDisp) - Math.abs(yDisp)));
 			return 3;
-		}
-		else if (Math.abs(xDisp) < Math.abs(yDisp))
+		} else if (Math.abs(xDisp) < Math.abs(yDisp))
 		{
-			System.out.println("hit vertical wall");
 			return 2;
-		}
-		else
+		} else
 		{
-			System.out.println("hit horizontal wall");
 			return 1;
 		}
 	}
