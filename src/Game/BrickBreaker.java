@@ -97,8 +97,37 @@ public class BrickBreaker extends JFrame implements MouseListener
 				@Override
 				public void actionPerformed(ActionEvent arg0)
 				{
-					targetingPanel.repaint();
-					playArea.repaint();
+					Thread targetingThread = new Thread(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							targetingPanel.repaint();
+						}
+
+					});
+
+					Thread playAreaThread = new Thread(new Runnable()
+					{
+						@Override
+						public void run()
+						{
+							playArea.repaint();
+						}
+					});
+
+					playAreaThread.start();
+					targetingThread.start();
+
+					try
+					{
+						playAreaThread.join();
+						targetingThread.join();
+					} catch (InterruptedException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 			});
 
@@ -112,7 +141,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 	public static void main(String[] args)
 	{
-
 		new BrickBreaker();
 	}
 
