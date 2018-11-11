@@ -49,7 +49,7 @@ public class BrickPanel extends DrawPanel
 			System.exit(0);
 		}
 
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21, 1, 1));
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21, 1, -1));
 	}
 
 	public void paintComponent(Graphics g)

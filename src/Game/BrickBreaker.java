@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Scanner;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -27,9 +28,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 	private BrickPanel playArea; // area with all bricks and balls
 	private TargettingPanel targetingPanel;
-	private BallFiringPanel ballPanel;
 	private Timer stepTimer;
-	private Timer shootTimer;
+	private Timer targettingTimer;
 
 	private boolean newRecord;
 
@@ -96,16 +96,22 @@ public class BrickBreaker extends JFrame implements MouseListener
 		{
 			score.setText("SCORE    : " + playArea.getCurScore());
 
-			// set the location of the current ball
-			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 7,
-					playArea.getAllBalls().peek().getY() + 7);
-			targetingPanel.setPointsVector(startingBallLoc);
-
-			if (!targetingPanel.ballsInMotion() && i == 0)
+			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 5,
+					playArea.getAllBalls().peek().getY() + 5);
+			targettingTimer = new Timer(1, new ActionListener()
 			{
-				stepTimer.start();
-				i++;
-			}
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
+					targetingPanel.setPointsVector(startingBallLoc);
+					targetingPanel.repaint();
+					playArea.repaint();
+				}
+			});
+
+			targettingTimer.start();
+
+			new Scanner(System.in).nextLine();
 		}
 
 		System.exit(-1);
