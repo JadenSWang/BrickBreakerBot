@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -48,7 +49,7 @@ public class BrickPanel extends DrawPanel
 			System.exit(0);
 		}
 
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21, 0, 0));
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21, 1, 1));
 	}
 
 	public void paintComponent(Graphics g)
@@ -74,6 +75,10 @@ public class BrickPanel extends DrawPanel
 
 		for (Ball next : allBalls)
 		{
+			System.out.println(next.getX() + " " + next.getY());
+			Random rand = new Random();
+
+			g.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
 
@@ -151,10 +156,11 @@ public class BrickPanel extends DrawPanel
 		int yVel = 10;
 
 		System.out.println("x vel: " + xVel + " y Vel: " + yVel);
-		for(Ball ball : allBalls) {
+		for (Ball ball : allBalls)
+		{
 			System.out.println(ball.getX() + " " + ball.getY());
 		}
-		
+
 		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
 	}
 
