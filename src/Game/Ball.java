@@ -70,6 +70,10 @@ public class Ball
 	{
 		return this.yLoc >= BrickBreaker.PLAY_LENGTH;
 	}
+	
+	public void setVelocity(int x, int y) {
+		vel = new Velocity(x, y);
+	}
 
 	public class Velocity
 	{

@@ -76,7 +76,6 @@ public class BrickPanel extends DrawPanel
 
 		for (Ball next : allBalls)
 		{
-			System.out.println(next.getX() + " " + next.getY());
 			Random rand = new Random();
 
 			g.setColor(new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat()));
@@ -113,10 +112,18 @@ public class BrickPanel extends DrawPanel
 		repaint();
 	}
 
-	public void step()
+	public boolean step(int xMouseLoc, int yMouseLoc)
 	{
+//		int mouseX = MouseInfo.getPointerInfo().getLocation().x;
+//		int mouseY = MouseInfo.getPointerInfo().getLocation().y;
+//		int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
+//		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
+//		int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));
+//		int yVel = 10;
+
 		for (Ball ball : allBalls)
 		{
+//			ball.setVelocity(xVel, yVel);
 			ball.updateLoc();
 			for (Brick brick : allBricks)
 			{
@@ -145,18 +152,15 @@ public class BrickPanel extends DrawPanel
 				{
 					ball.reverseYDir();
 				}
-				
-				if (ball.getX() >= BrickBreaker.PLAY_LENGTH)
-				{
-					ball.reverseXDir();
-				}
-				
-				if (ball.getY() >= BrickBreaker.PLAY_LENGTH)
+
+				if (ball.getY() + 15 >= BrickBreaker.PLAY_LENGTH)
 				{
 					ball.reverseYDir();
+					return false;
 				}
 			}
 		}
+		return true;
 	}
 
 	public void shootBall()
@@ -167,12 +171,6 @@ public class BrickPanel extends DrawPanel
 		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
 		int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));
 		int yVel = 10;
-
-		System.out.println("x vel: " + xVel + " y Vel: " + yVel);
-		for (Ball ball : allBalls)
-		{
-			System.out.println(ball.getX() + " " + ball.getY());
-		}
 
 		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
 	}
