@@ -64,11 +64,16 @@ public class BrickBreaker extends JFrame implements MouseListener
 		add(score);
 
 		setVisible(true);
+		playArea.addRow();
+		playArea.addRow();
+		playArea.addRow();
+		playArea.addRow();
+		playArea.addRow();
 
 		while (isOver)
 		{
 			playArea.step();
-			
+
 			score.setText("SCORE    : " + playArea.getCurScore());
 
 			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 5,
@@ -81,8 +86,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 					playArea.setPointsVector(startingBallLoc);
 					playArea.repaint();
 				}
-			});		
-			
+			});
+
 			targettingTimer.start();
 
 			new Scanner(System.in).nextLine();
