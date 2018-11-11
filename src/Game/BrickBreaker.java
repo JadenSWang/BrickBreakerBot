@@ -87,7 +87,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 			score.setText("SCORE    : " + playArea.getCurScore());
 
-			//set the location of the current ball
+			// set the location of the current ball
 			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 5,
 					playArea.getAllBalls().get(0).getY() + 5);
 			targetingPanel.setPointsVector(startingBallLoc);

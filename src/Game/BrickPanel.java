@@ -4,10 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.MouseInfo;
-import java.awt.Point;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +56,7 @@ public class BrickPanel extends DrawPanel
 
 		for (Brick next : allBricks)
 		{
+
 			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
 
 			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
@@ -76,11 +73,11 @@ public class BrickPanel extends DrawPanel
 
 		for (Ball next : allBalls)
 		{
+
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
-
 	}
-
+	
 	// adds a new row of bricks
 	public void addRow()
 	{
@@ -120,11 +117,13 @@ public class BrickPanel extends DrawPanel
 
 				if (hitDirection == 1)
 				{
-					// hit horizontally
+					// hit horizontal wall
+
 					ball.reverseYDir();
 				} else if (hitDirection == 2)
 				{
 					// hit vertically
+
 					ball.reverseXDir();
 				} else if (hitDirection == 3)
 				{
@@ -167,10 +166,6 @@ public class BrickPanel extends DrawPanel
 	public class PicPanel extends JPanel
 	{
 
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = -4102117768556729337L;
 		private int width;
 		private int height;
 		private BufferedImage i;
@@ -188,6 +183,7 @@ public class BrickPanel extends DrawPanel
 
 		public PicPanel(int w, int h, BufferedImage bI, Brick b)
 		{
+
 			this(w, h, bI);
 
 			thisBrick = b;
