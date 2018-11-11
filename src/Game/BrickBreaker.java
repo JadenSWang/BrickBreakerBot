@@ -2,8 +2,9 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Scanner;
@@ -25,12 +26,15 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private boolean isOver = true;
 
 	private DrawPanel playArea; // area with all bricks and balls
+	private TargettingDrawPanel targettingPanel;
+
+	private Point startingBallLoc;
 
 	protected static final int PLAY_LENGTH = 650;
 
 	public BrickBreaker()
 	{
-		Timer lineupTimer;
+		Timer targettingTimer;
 
 		setSize(665, 900);
 		setTitle("Brick Breaker");
@@ -47,6 +51,15 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		add(playArea);
 
+		targettingPanel = new TargettingDrawPanel();
+		targettingPanel.setBackground(Color.white);
+		targettingPanel.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
+		targettingPanel.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
+
+		targettingPanel.setLayout(null);
+		
+		add(targettingPanel);
+
 		record = new JLabel("RECORD : ");
 		score = new JLabel("SCORE    : " + playArea.getCurScore());
 
@@ -61,15 +74,26 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		setVisible(true);
 
-		playArea.addRow();
-
 		while (isOver)
 		{
-			lineupTimer = new Timer(1, null);
-
-			new Scanner(System.in).nextLine();
 			playArea.addRow();
 			score.setText("SCORE    : " + playArea.getCurScore());
+
+			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 5,
+					playArea.getAllBalls().get(0).getY() + 5);
+			targettingTimer = new Timer(1, new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0)
+				{
+					targettingPanel.setPointsVector(startingBallLoc);
+					targettingPanel.repaint();
+				}
+			});
+
+			targettingTimer.start();
+
+			new Scanner(System.in).nextLine();
 		}
 
 		System.exit(-1);
@@ -84,7 +108,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-		
+
 	}
 
 	@Override
