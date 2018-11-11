@@ -94,7 +94,23 @@ public class BrickBreaker extends JFrame implements MouseListener
 			{
 				targetingPanel.setPointsVector(startingBallLoc);
 				targetingPanel.repaint();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+				playArea.step();
+
 				playArea.repaint();
+				
+				if(playArea.getAllBalls().peek().hitBottom())
+					targettingTimer.stop();
 			}
 		});
 

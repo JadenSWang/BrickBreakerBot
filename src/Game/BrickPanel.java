@@ -62,7 +62,7 @@ public class BrickPanel extends DrawPanel
 
 			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
 
-			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
+			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[0], next);
 
 			pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 			add(pic);
@@ -142,6 +142,16 @@ public class BrickPanel extends DrawPanel
 					ball.reverseXDir();
 				}
 				if (ball.getY() <= 0)
+				{
+					ball.reverseYDir();
+				}
+				
+				if (ball.getX() >= BrickBreaker.PLAY_LENGTH)
+				{
+					ball.reverseXDir();
+				}
+				
+				if (ball.getY() >= BrickBreaker.PLAY_LENGTH)
 				{
 					ball.reverseYDir();
 				}
