@@ -21,7 +21,7 @@ public class TargettingPanel extends BrickPanel
 		{
 			if (startingBallLoc == null)
 			{
-				throw new IllegalStateException("Must set starting point first");
+				return;
 			}
 
 			Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
@@ -29,13 +29,18 @@ public class TargettingPanel extends BrickPanel
 		}
 	}
 
-	public void movingFlipper()
+	public void setBallInMotion()
 	{
-		ballsInMotion = !ballsInMotion;
+		ballsInMotion = true;
 	}
 
 	public void setPointsVector(Point startingBallLoc)
 	{
 		this.startingBallLoc = startingBallLoc;
+	}
+
+	public boolean ballsInMotion()
+	{
+		return ballsInMotion;
 	}
 }

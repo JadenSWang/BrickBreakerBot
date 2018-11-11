@@ -27,6 +27,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 	private BrickPanel playArea; // area with all bricks and balls
 	private TargettingPanel targetingPanel;
+	private Timer stepTimer;
 
 	private boolean newRecord;
 
@@ -86,17 +87,20 @@ public class BrickBreaker extends JFrame implements MouseListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		while (isOver)
+
+		stepTimer = new Timer(10, new ActionListener()
 		{
-			try
+			@Override
+			public void actionPerformed(ActionEvent arg0)
 			{
-				Thread.sleep(5);
-			} catch (InterruptedException e1)
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				targetingPanel.repaint();
+				playArea.repaint();
 			}
 
+		});
+
+		while (isOver)
+		{
 			score.setText("SCORE    : " + playArea.getCurScore());
 
 			// set the location of the current ball
@@ -104,38 +108,10 @@ public class BrickBreaker extends JFrame implements MouseListener
 					playArea.getAllBalls().get(0).getY() + 7);
 			targetingPanel.setPointsVector(startingBallLoc);
 
-			Thread stepThread = new Thread(new Runnable()
+			if (!targetingPanel.ballsInMotion())
 			{
-				@Override
-				public void run()
-				{
-					playArea.step();
-				}
-			});
-
-			Thread targetingThread = new Thread(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					targetingPanel.repaint();
-				}
-			});
-
-			Thread playAreaThread = new Thread(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-
-					playArea.repaint();
-				}
-			});
-
-			playAreaThread.start();
-			targetingThread.start();
-			stepThread.start();
-
+				stepTimer.start();
+			}
 		}
 
 		System.exit(-1);
@@ -149,7 +125,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-		System.out.println("nigglets");
+		targetingPanel.setBallInMotion();
+		stepTimer.stop();
 	}
 
 	@Override

@@ -77,7 +77,7 @@ public class BrickPanel extends DrawPanel
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
 	}
-	
+
 	// adds a new row of bricks
 	public void addRow()
 	{
@@ -129,12 +129,12 @@ public class BrickPanel extends DrawPanel
 				{
 					ball.reverseBothDir();
 				}
-				
-				if(ball.getX() >= BrickBreaker.PLAY_LENGTH || ball.getX() <= 0)
+
+				if (ball.getX() >= BrickBreaker.PLAY_LENGTH || ball.getX() <= 0)
 				{
 					ball.reverseXDir();
 				}
-				if(ball.getY() <= 0)
+				if (ball.getY() <= 0)
 				{
 					ball.reverseYDir();
 				}
