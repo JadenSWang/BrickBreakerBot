@@ -85,6 +85,11 @@ public class Ball
 	{
 		return this.vel;
 	}
+	
+	public boolean hitEnd()
+	{
+		return this.yLoc >= BrickBreaker.PLAY_LENGTH;
+	}
 
 	
 	public class Velocity
