@@ -123,7 +123,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 		targetingPanel.setBallInMotion();
 		playArea.shootBall(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
 		playArea.step();
- 	}
+	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0)

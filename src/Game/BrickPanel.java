@@ -151,7 +151,10 @@ public class BrickPanel extends DrawPanel
 		int yVel = 10;
 
 		System.out.println("x vel: " + xVel + " y Vel: " + yVel);
-
+		for(Ball ball : allBalls) {
+			System.out.println(ball.getX() + " " + ball.getY());
+		}
+		
 		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
 	}
 
