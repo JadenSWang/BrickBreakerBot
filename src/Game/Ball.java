@@ -14,6 +14,7 @@ public class Ball
 
 	public Ball(int xLoc, int yLoc)
 	{
+		vel = new Velocity(1,1);
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
 	}
@@ -75,5 +76,11 @@ public class Ball
 	{
 		int xV;
 		int yV;
+		
+		public Velocity(int xV, int yV)
+		{
+			this.xV = xV;
+			this.yV = yV;
+		}
 	}
 }

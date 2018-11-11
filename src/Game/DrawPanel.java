@@ -25,7 +25,7 @@ public class DrawPanel extends JPanel
 	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
 	private ArrayList<Ball> allBalls;
-	private int curScore = 0;
+	private int curScore = 1;
 
 	private BufferedImage[] brickColors;
 
