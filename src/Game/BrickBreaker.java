@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
@@ -43,7 +41,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 		playArea.setLayout(null);
 
 		add(playArea);
-		
+
 		record = new JLabel("RECORD : ");
 		score = new JLabel("SCORE    : " + playArea.getCurScore());
 
@@ -63,11 +61,11 @@ public class BrickBreaker extends JFrame implements MouseListener
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
 			score.setText("SCORE    : " + playArea.getCurScore());
-			
+
 		}
 
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
