@@ -1,11 +1,14 @@
 package Game;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 public class Ball
 {
 	private int xLoc;
 	private int yLoc;
+	private Velocity vel;
 
 	public static final int DIAMETER = 15;
 
@@ -39,5 +42,38 @@ public class Ball
 	public int getY()
 	{
 		return yLoc;
+	}
+
+	public void hitHorizWall()
+	{
+		this.vel.yV *= -1;
+	}
+
+	public void hitVertWall()
+	{
+		this.vel.xV *= -1;
+	}
+
+	public void updateLoc()
+	{
+		this.xLoc += this.vel.xV;
+		this.yLoc += this.vel.yV;
+	}
+	
+	public void reverseXDir()
+	{
+		this.vel.xV *= -1;
+	}
+	
+	public void reverseYDir()
+	{
+		this.vel.yV *= -1;
+	}
+
+	
+	private class Velocity
+	{
+		int xV;
+		int yV;
 	}
 }

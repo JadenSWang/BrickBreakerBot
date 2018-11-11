@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class DrawPanel extends JPanel 
+public class DrawPanel extends JPanel
 {
 
 	/**
@@ -25,11 +25,10 @@ public class DrawPanel extends JPanel
 	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
 	private ArrayList<Ball> allBalls;
-	private int curScore = 1;
+	private int curScore = 0;
 
 	private BufferedImage[] brickColors;
-	private BufferedImage ballPic;
-	
+
 	private ArrayList<JPanel> allBrickPics;
 
 	public DrawPanel()
@@ -39,14 +38,14 @@ public class DrawPanel extends JPanel
 		allBrickPics = new ArrayList<JPanel>();
 		brickColors = new BufferedImage[7];
 
-		try {
+		try
+		{
 
-			for(int i = 0; i < 7; i++) 
+			for (int i = 0; i < 7; i++)
 				brickColors[i] = ImageIO.read(new File("Color_" + i + ".png"));
 
-			ballPic = ImageIO.read(new File("Ball.png"));
-
-		} catch (IOException ioe) {
+		} catch (IOException ioe)
+		{
 			System.out.println("Could not read in the pic");
 			System.exit(0);
 		}
@@ -62,7 +61,7 @@ public class DrawPanel extends JPanel
 		for (Brick next : allBricks)
 		{
 
-			int colorLoc = (int) (next.getHealth() / ((double)(curScore)/7));
+			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
 
 			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
 
@@ -73,22 +72,19 @@ public class DrawPanel extends JPanel
 			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 		}
 
-		g.setColor(Color.GREEN);
+		// shade of blue
+		g.setColor(new Color(99, 205, 255));
+
 		for (Ball next : allBalls)
 		{
-			PicPanel pic = new PicPanel(Ball.DIAMETER, Ball.DIAMETER, ballPic);
-
-			pic.setBounds(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
-			add(pic);
 
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
-		
+
 	}
 
-	public void drawVector(int x, int y) {
-		
-		
+	public void drawVector(int x, int y)
+	{
 
 	}
 
@@ -120,6 +116,28 @@ public class DrawPanel extends JPanel
 		repaint();
 	}
 
+	public void step()
+	{
+		for (Ball ball : allBalls)
+		{
+			ball.updateLoc();
+			for (Brick brick : allBricks)
+			{
+				int hitDirection = brick.isHit(ball);
+
+				if (hitDirection == 1)
+				{
+					// hit horizontally
+					ball.reverseYDir();
+				} else if (hitDirection == 2)
+				{
+					// hit vertically
+					ball.reverseXDir();
+				}
+			}
+		}
+	}
+
 	public int getCurScore()
 	{
 		return curScore;
@@ -131,10 +149,11 @@ public class DrawPanel extends JPanel
 		for (Brick b : allBricks)
 			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
 
-		for(int i = 0; i < allBrickPics.size(); i++) { 
-			
+		for (int i = 0; i < allBrickPics.size(); i++)
+		{
+
 			JPanel j = allBrickPics.get(i);
-			
+
 			j.setBounds(j.getX(), j.getY() + Brick.BRICK_HEIGHT + 2, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 		}
 	}
@@ -149,54 +168,57 @@ public class DrawPanel extends JPanel
 		return this.allBalls;
 	}
 
-	public class PicPanel extends JPanel {
+	public class PicPanel extends JPanel
+	{
 
 		private int width;
 		private int height;
 		private BufferedImage i;
-		private Brick thisBrick; 
+		private Brick thisBrick;
 		private JLabel healthLabel;
 
-		public PicPanel(int w, int h, BufferedImage bI) {
+		public PicPanel(int w, int h, BufferedImage bI)
+		{
 
 			width = w;
 			height = h;
 			i = bI;
 
-
 		}
 
-		public PicPanel(int w, int h, BufferedImage bI, Brick b) {
+		public PicPanel(int w, int h, BufferedImage bI, Brick b)
+		{
 
-			this(w,h,bI);
+			this(w, h, bI);
 
 			thisBrick = b;
 			healthLabel = new JLabel();
 
-			healthLabel.setFont(new Font("Helvetica",Font.BOLD,40));
+			healthLabel.setFont(new Font("Helvetica", Font.BOLD, 40));
 			healthLabel.setForeground(Color.white);
 
 			setLabel();
 
 			add(healthLabel);
 
-
-
 		}
 
-		public void setLabel() {
+		public void setLabel()
+		{
 
-			healthLabel.setText(thisBrick.getHealth() +"");
+			healthLabel.setText(thisBrick.getHealth() + "");
 
 		}
 
 		// called by the machine
-		public Dimension getPreferredSize() {
+		public Dimension getPreferredSize()
+		{
 			return new Dimension(width, height);
 		}
 
 		// called automatically by repaint
-		public void paintComponent(Graphics g) {
+		public void paintComponent(Graphics g)
+		{
 
 			super.paintComponent(g);
 

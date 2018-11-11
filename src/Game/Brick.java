@@ -6,6 +6,7 @@ public class Brick
 	private int xLoc;
 	private int yLoc;
 
+
 	public static final int BRICK_WIDTH = (BrickBreaker.PLAY_LENGTH - 10) / 6;
 	public static final int BRICK_HEIGHT = (BrickBreaker.PLAY_LENGTH - 24) / 8;
 
@@ -17,11 +18,19 @@ public class Brick
 		this.yLoc = y;
 	}
 
-	public boolean isHit(Ball ball)
+	//0 is not hit, 1 is hit horizontally, 2 is hit vertically
+	public int isHit(Ball ball)
 	{
-		return (ball.getX() >= this.xLoc && ball.getX() <= this.xLoc + BRICK_WIDTH)
-				|| (ball.getX() + Ball.DIAMETER >= this.xLoc && ball.getX() + Ball.DIAMETER <= this.xLoc + BRICK_WIDTH) && (ball.getY() >= this.yLoc && ball.getY() <= this.yLoc + BRICK_HEIGHT)
-				|| (ball.getY() + Ball.DIAMETER >= this.yLoc && ball.getY() + Ball.DIAMETER <= this.yLoc + BRICK_HEIGHT);
+		if (!(((ball.getX() >= this.xLoc && ball.getX() <= this.xLoc + BRICK_WIDTH) || (ball.getX() + Ball.DIAMETER >= this.xLoc && ball.getX() + Ball.DIAMETER <= this.xLoc + BRICK_WIDTH) && (ball.getY() >= this.yLoc && ball.getY() <= this.yLoc + BRICK_HEIGHT)) || (ball.getY() + Ball.DIAMETER >= this.yLoc && ball.getY() + Ball.DIAMETER <= this.yLoc + BRICK_HEIGHT))) {
+			return 0;
+		}
+		
+		int xDisp = Math.min(Math.abs(this.xLoc - ball.getX()), Math.abs(this.xLoc - (ball.getX() + BRICK_WIDTH)));
+		int yDisp = Math.min(Math.abs(this.yLoc - ball.getY()), Math.abs(this.yLoc - (ball.getY() + BRICK_HEIGHT)));
+		if(xDisp < yDisp)
+			return 2;
+		else
+			return 1;
 	}
 
 	public int getXLoc()
