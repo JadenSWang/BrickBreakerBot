@@ -1,20 +1,24 @@
 package Game;
 
+import javax.swing.JPanel;
+
 public class Brick
 {
 	private int health;
 	private int xLoc;
 	private int yLoc;
-
+	private JPanel pic;
+	
 	public static final int BRICK_WIDTH = (BrickBreaker.PLAY_LENGTH - 10) / 6;
 	public static final int BRICK_HEIGHT = (BrickBreaker.PLAY_LENGTH - 24) / 8;
 
-	public Brick(int health, int xLoc, int y)
+	public Brick(int health, int xLoc, int y, JPanel p)
 	{
 		this.setHealth(health);
 
 		this.xLoc = xLoc;
 		this.yLoc = y;
+		pic = p;
 	}
 
 	// 0 is not hit, 1 is hit horizontal wall, 2 is hit vertical wall, 3 is hit
@@ -110,6 +114,18 @@ public class Brick
 		return health;
 	}
 
+	public JPanel getPic() {
+		
+		return pic;
+		
+	}
+	
+	public void setPic(JPanel p) {
+		
+		this.pic  =p;
+		
+	}
+	
 	public void setHealth(int health)
 	{
 		this.health = health;

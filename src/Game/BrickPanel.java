@@ -62,17 +62,16 @@ public class BrickPanel extends DrawPanel
 
 		Iterator<Brick> brickIter = allBricks.iterator();
 		while (brickIter.hasNext()) {
+		
 			Brick next= brickIter.next();
 
 			if(next.getHealth() == 0) {
 
-				JPanel cover = new JPanel();
-				cover.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-				add(cover);
-				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-
+				this.remove(next.getPic());
+				
+				
 				brickIter.remove();
-
+				
 			}
 
 			else {
@@ -84,6 +83,7 @@ public class BrickPanel extends DrawPanel
 				pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 				add(pic);
 				allBrickPics.add(pic);
+				next.setPic(pic);
 
 				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 
@@ -125,7 +125,7 @@ public class BrickPanel extends DrawPanel
 			if (addLoc != 0)
 				x = (Brick.BRICK_WIDTH * addLoc) + (2 * addLoc);
 
-			allBricks.add(new Brick(curScore, x, y));
+			allBricks.add(new Brick(curScore, x, y, null));
 		}
 
 		curScore++;
@@ -173,17 +173,8 @@ public class BrickPanel extends DrawPanel
 				{
 					ball.reverseYDir();
 				}
-
-<<<<<<< HEAD
-				if (ball.getX() >= BrickBreaker.PLAY_LENGTH)
-				{
-					ball.reverseXDir();
-				}
-
-				if (ball.getY() >= BrickBreaker.PLAY_LENGTH)
-=======
+				
 				if (ball.getY() + 15 >= BrickBreaker.PLAY_LENGTH)
->>>>>>> branch 'ui' of https://github.com/JadenSWang/BrickBreakerBot.git
 				{
 					ball.reverseYDir();
 					return false;
