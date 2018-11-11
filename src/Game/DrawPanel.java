@@ -68,7 +68,7 @@ public class DrawPanel extends JPanel implements MouseListener
 
 			allBricks.add(new Brick(curScore, x, y));
 		}
-		
+
 		curScore++;
 		moveDown();
 		repaint();
@@ -82,10 +82,8 @@ public class DrawPanel extends JPanel implements MouseListener
 	// moves all bricks down one row
 	public void moveDown()
 	{
-
 		for (Brick b : allBricks)
 			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
-
 	}
 
 	public ArrayList<Brick> getAllBricks()
@@ -101,6 +99,7 @@ public class DrawPanel extends JPanel implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
+
 	}
 
 	@Override
