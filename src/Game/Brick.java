@@ -72,8 +72,7 @@ public class Brick
 		}
 		else
 		{
-			System.out.println("hit. Ball x:" + ball.getX() + " brick x: " +  this.xLoc + " ball y: " + ball.getY() + " brick y: " + this.yLoc);
-			System.out.println("x disp: " + xDisp + " y disp: " + yDisp);
+			this.health--;
 		}
 
 		
