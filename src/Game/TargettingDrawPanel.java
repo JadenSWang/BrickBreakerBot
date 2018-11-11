@@ -6,11 +6,10 @@ import java.awt.Point;
 
 import javax.swing.JPanel;
 
-public class TargettingDrawPanel extends JPanel
+public class TargettingDrawPanel extends PaintablePanel
 {
 
 	private Point startingBallLoc;
-	private int[] locs = new int[2];
 
 	/**
 	 * 
