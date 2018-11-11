@@ -26,7 +26,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 	public BrickBreaker()
 	{
-
 		setSize(650, 900);
 		setTitle("Brick Breaker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -61,16 +60,13 @@ public class BrickBreaker extends JFrame implements MouseListener
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
 			score.setText("SCORE    : " + playArea.getCurScore());
-
 		}
-
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	@Override
