@@ -47,7 +47,7 @@ public class BrickPanel extends DrawPanel
 			System.exit(0);
 		}
 
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21));
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21, 0, 0));
 	}
 
 	public void paintComponent(Graphics g)
@@ -73,9 +73,9 @@ public class BrickPanel extends DrawPanel
 
 		for (Ball next : allBalls)
 		{
-
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
+
 	}
 
 	// adds a new row of bricks
@@ -141,11 +141,14 @@ public class BrickPanel extends DrawPanel
 			}
 		}
 	}
-	
+
 	public void shootBall(int mouseX, int mouseY)
 	{
-//		int xVel = mouseX
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
+		int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
+		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5,
+				10 / (yDisp / xDisp), 10));
+		step();
 	}
 
 	public int getCurScore()

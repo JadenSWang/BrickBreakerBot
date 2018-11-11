@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -28,6 +29,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private BrickPanel playArea; // area with all bricks and balls
 	private TargettingPanel targetingPanel;
 	private Timer stepTimer;
+	private Timer shootTimer;
 
 	private boolean newRecord;
 
@@ -87,7 +89,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 
 		stepTimer = new Timer(10, new ActionListener()
 		{
@@ -95,11 +96,18 @@ public class BrickBreaker extends JFrame implements MouseListener
 			public void actionPerformed(ActionEvent arg0)
 			{
 				targetingPanel.repaint();
-				playArea.repaint();
 			}
-
 		});
 		
+		shootTimer = new Timer(10, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				playArea.repaint();
+			}
+		});
+
 		while (isOver)
 		{
 			score.setText("SCORE    : " + playArea.getCurScore());
@@ -112,6 +120,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 			if (!targetingPanel.ballsInMotion())
 			{
 				stepTimer.start();
+				shootTimer.start();
 			}
 		}
 
@@ -127,7 +136,9 @@ public class BrickBreaker extends JFrame implements MouseListener
 	public void mouseClicked(MouseEvent arg0)
 	{
 		targetingPanel.setBallInMotion();
+		playArea.shootBall(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
 		stepTimer.stop();
+		shootTimer.start();
 	}
 
 	@Override
