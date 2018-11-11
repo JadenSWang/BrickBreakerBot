@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
@@ -57,18 +58,38 @@ public class BrickPanel extends DrawPanel
 	{
 		super.paintComponent(g);
 
-		for (Brick next : allBricks)
-		{
+		g.setColor(new Color(255,255,255));
 
-			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
+		Iterator<Brick> brickIter = allBricks.iterator();
+		while (brickIter.hasNext()) {
+			Brick next= brickIter.next();
 
-			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[0], next);
+			if(next.getHealth() == 0) {
 
-			pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-			add(pic);
-			allBrickPics.add(pic);
+				JPanel cover = new JPanel();
+				cover.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				add(cover);
+				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 
-			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				brickIter.remove();
+
+			}
+
+			else {
+
+				int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
+
+				PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[0], next);
+
+				pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				add(pic);
+				allBrickPics.add(pic);
+
+				g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+
+			}
+
+
 		}
 
 		// shade of blue
@@ -145,12 +166,12 @@ public class BrickPanel extends DrawPanel
 				{
 					ball.reverseYDir();
 				}
-				
+
 				if (ball.getX() >= BrickBreaker.PLAY_LENGTH)
 				{
 					ball.reverseXDir();
 				}
-				
+
 				if (ball.getY() >= BrickBreaker.PLAY_LENGTH)
 				{
 					ball.reverseYDir();

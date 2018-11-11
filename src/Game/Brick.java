@@ -114,4 +114,5 @@ public class Brick
 	{
 		this.health = health;
 	}
+
 }
