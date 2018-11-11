@@ -64,11 +64,11 @@ public class BrickBreaker extends JFrame
 		{
 			lineupTimer = new Timer(1, null);
 
-			while (!ballsInMotion)
+			/*while (!ballsInMotion)
 			{
 				Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
 				playArea.drawVector(mouseLocation.x, mouseLocation.y);
-			}
+			}*/
 
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
