@@ -26,16 +26,16 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private boolean isOver = true;
 
 	private DrawPanel playArea; // area with all bricks and balls
-	private TargettingDrawPanel targettingPanel;
+
+	private boolean newRecord;
 
 	private Point startingBallLoc;
+	private Timer targettingTimer;
 
 	protected static final int PLAY_LENGTH = 650;
 
 	public BrickBreaker()
 	{
-		Timer targettingTimer;
-
 		setSize(665, 900);
 		setTitle("Brick Breaker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,15 +50,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 		playArea.setLayout(null);
 
 		add(playArea);
-
-		targettingPanel = new TargettingDrawPanel();
-		targettingPanel.setBackground(Color.white);
-		targettingPanel.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
-		targettingPanel.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
-
-		targettingPanel.setLayout(null);
-
-//		add(targettingPanel);
 
 		record = new JLabel("RECORD : ");
 		score = new JLabel("SCORE    : " + playArea.getCurScore());
@@ -76,7 +67,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		while (isOver)
 		{
-			playArea.addRow();
+			playArea.step();
+			
 			score.setText("SCORE    : " + playArea.getCurScore());
 
 			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 5,
@@ -86,15 +78,18 @@ public class BrickBreaker extends JFrame implements MouseListener
 				@Override
 				public void actionPerformed(ActionEvent arg0)
 				{
-					targettingPanel.setPointsVector(startingBallLoc);
-					targettingPanel.repaint();
-				}
-			});
+					Long start = System.currentTimeMillis();
 
-			targettingTimer.start();
-			new Scanner(System.in).nextLine();
+					playArea.setPointsVector(startingBallLoc);
+					playArea.repaint();
+
+					System.out.println(System.currentTimeMillis() - start);
+				}
+			});		
 			
-			playArea.step();
+			targettingTimer.start();
+
+			new Scanner(System.in).nextLine();
 		}
 
 		System.exit(-1);
@@ -109,7 +104,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-
+		targettingTimer.stop();
 	}
 
 	@Override

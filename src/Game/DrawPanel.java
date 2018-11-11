@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -28,8 +30,10 @@ public class DrawPanel extends JPanel
 	private int curScore = 1;
 
 	private BufferedImage[] brickColors;
-
 	private ArrayList<JPanel> allBrickPics;
+
+	private Point startingBallLoc;
+	private boolean ballsInMotion;
 
 	public DrawPanel()
 	{
@@ -57,7 +61,17 @@ public class DrawPanel extends JPanel
 	{
 		super.paintComponent(g);
 
-		g.setColor(Color.ORANGE);
+		if (!ballsInMotion)
+		{
+			if (startingBallLoc == null)
+			{
+				throw new IllegalStateException("Must set starting point first");
+			}
+
+			Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
+			g.drawLine(mouseLoc.x, mouseLoc.y, startingBallLoc.x, startingBallLoc.y);
+		}
+
 		for (Brick next : allBricks)
 		{
 
@@ -80,12 +94,16 @@ public class DrawPanel extends JPanel
 
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
-
 	}
 
-	public void drawVector(int x, int y)
+	public void movingFlipper()
 	{
+		ballsInMotion = !ballsInMotion;
+	}
 
+	public void setPointsVector(Point startingBallLoc)
+	{
+		this.startingBallLoc = startingBallLoc;
 	}
 
 	// adds a new row of bricks
