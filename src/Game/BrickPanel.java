@@ -141,6 +141,12 @@ public class BrickPanel extends DrawPanel
 			}
 		}
 	}
+	
+	public void shootBall(int mouseX, int mouseY)
+	{
+//		int xVel = mouseX
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
+	}
 
 	public int getCurScore()
 	{

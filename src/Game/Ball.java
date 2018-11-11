@@ -12,7 +12,7 @@ public class Ball
 
 	public static final int DIAMETER = 15;
 
-	public Ball(int xLoc, int yLoc)
+	public Ball(int xLoc, int yLoc, int xVel, int yVel)
 	{
 		vel = new Velocity(1,-1);
 		this.xLoc = xLoc;
