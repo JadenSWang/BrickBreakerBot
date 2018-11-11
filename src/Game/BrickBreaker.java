@@ -28,6 +28,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 	private BrickPanel playArea; // area with all bricks and balls
 	private TargettingPanel targetingPanel;
+	private BallFiringPanel ballPanel;
 	private Timer stepTimer;
 	private Timer shootTimer;
 
@@ -77,18 +78,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		setVisible(true);
 		playArea.addRow();
-		playArea.addRow();
 
 		this.addMouseListener(this);
-
-		try
-		{
-			Thread.sleep(1000);
-		} catch (InterruptedException e1)
-		{
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		stepTimer = new Timer(10, new ActionListener()
 		{
@@ -96,31 +87,25 @@ public class BrickBreaker extends JFrame implements MouseListener
 			public void actionPerformed(ActionEvent arg0)
 			{
 				targetingPanel.repaint();
-			}
-		});
-		
-		shootTimer = new Timer(10, new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
 				playArea.repaint();
 			}
 		});
+
+		int i = 0;
 
 		while (isOver)
 		{
 			score.setText("SCORE    : " + playArea.getCurScore());
 
 			// set the location of the current ball
-			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 7,
-					playArea.getAllBalls().get(0).getY() + 7);
+			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 7,
+					playArea.getAllBalls().peek().getY() + 7);
 			targetingPanel.setPointsVector(startingBallLoc);
 
-			if (!targetingPanel.ballsInMotion())
+			if (!targetingPanel.ballsInMotion() && i == 0)
 			{
 				stepTimer.start();
-				shootTimer.start();
+				i++;
 			}
 		}
 
@@ -137,9 +122,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 	{
 		targetingPanel.setBallInMotion();
 		playArea.shootBall(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
-		stepTimer.stop();
-		shootTimer.start();
-	}
+		playArea.step();
+ 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0)

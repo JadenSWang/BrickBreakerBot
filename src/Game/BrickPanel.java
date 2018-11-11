@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
@@ -22,7 +24,7 @@ public class BrickPanel extends DrawPanel
 	 */
 	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
-	private ArrayList<Ball> allBalls;
+	private Queue<Ball> allBalls;
 	private int curScore = 1;
 
 	private BufferedImage[] brickColors;
@@ -30,14 +32,13 @@ public class BrickPanel extends DrawPanel
 
 	public BrickPanel()
 	{
-		allBalls = new ArrayList<Ball>();
+		allBalls = new LinkedList<Ball>();
 		allBricks = new ArrayList<Brick>();
 		allBrickPics = new ArrayList<JPanel>();
 		brickColors = new BufferedImage[7];
 
 		try
 		{
-
 			for (int i = 0; i < 7; i++)
 				brickColors[i] = ImageIO.read(new File("Color_" + i + ".png"));
 
@@ -146,9 +147,12 @@ public class BrickPanel extends DrawPanel
 	{
 		int xDisp = mouseX - BrickBreaker.PLAY_LENGTH / 2;
 		int yDisp = BrickBreaker.PLAY_LENGTH - mouseY;
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5,
-				10 / (yDisp / xDisp), 10));
-		step();
+		int xVel = (int) (10.0 / ((double) yDisp / (double) xDisp));
+		int yVel = 10;
+
+		System.out.println("x vel: " + xVel + " y Vel: " + yVel);
+
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER, BrickBreaker.PLAY_LENGTH - 5, xVel, yVel));
 	}
 
 	public int getCurScore()
@@ -176,7 +180,7 @@ public class BrickPanel extends DrawPanel
 		return this.allBricks;
 	}
 
-	public ArrayList<Ball> getAllBalls()
+	public Queue<Ball> getAllBalls()
 	{
 		return this.allBalls;
 	}
