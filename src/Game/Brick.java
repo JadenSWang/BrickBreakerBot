@@ -50,10 +50,10 @@ public class Brick
 		int yDisp = Math.min(Math.abs(this.yLoc - ball.getY()), Math.abs(this.yLoc - (ball.getY() + BRICK_HEIGHT)));
 		if (xDisp < yDisp)
 		{
-			return 2;
+			return 1;
 		} else
 		{
-			return 1;
+			return 2;
 		}
 	}
 
