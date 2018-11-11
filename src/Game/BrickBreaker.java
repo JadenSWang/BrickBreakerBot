@@ -11,8 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-public class BrickBreaker extends JFrame
-{
+public class BrickBreaker extends JFrame {
 
 	/**
 	 * 
@@ -27,8 +26,7 @@ public class BrickBreaker extends JFrame
 
 	protected static final int PLAY_LENGTH = 650;
 
-	public BrickBreaker()
-	{
+	public BrickBreaker() {
 		Timer lineupTimer;
 
 		setSize(650, 900);
@@ -61,16 +59,15 @@ public class BrickBreaker extends JFrame
 		setVisible(true);
 
 		playArea.addRow();
-		
-		while (isOver)
-		{
+
+		while (isOver) {
 			lineupTimer = new Timer(1, null);
 
-			/*while (!ballsInMotion)
-			{
-				Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
-				playArea.drawVector(mouseLocation.x, mouseLocation.y);
-			}*/
+			/*
+			 * while (!ballsInMotion) { Point mouseLocation =
+			 * MouseInfo.getPointerInfo().getLocation();
+			 * playArea.drawVector(mouseLocation.x, mouseLocation.y); }
+			 */
 
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
@@ -80,10 +77,8 @@ public class BrickBreaker extends JFrame
 		System.exit(-1);
 	}
 
-	public static void main(String[] args)
-	{
+	public static void main(String[] args) {
 
 		new BrickBreaker();
 	}
-
 }
