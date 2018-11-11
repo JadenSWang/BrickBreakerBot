@@ -57,7 +57,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 		targettingPanel.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
 
 		targettingPanel.setLayout(null);
-		
+
 		add(targettingPanel);
 
 		record = new JLabel("RECORD : ");
