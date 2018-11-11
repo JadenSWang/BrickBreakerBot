@@ -14,7 +14,7 @@ public class Ball
 
 	public Ball(int xLoc, int yLoc)
 	{
-		vel = new Velocity(1,1);
+		vel = new Velocity(10,-10);
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
 	}
@@ -64,11 +64,13 @@ public class Ball
 	public void reverseXDir()
 	{
 		this.vel.xV *= -1;
+		System.out.println("xdir reversed");
 	}
 	
 	public void reverseYDir()
 	{
 		this.vel.yV *= -1;
+		System.out.println("ydir reversed");
 	}
 
 	
