@@ -87,14 +87,16 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 			score.setText("SCORE    : " + playArea.getCurScore());
 
+			//set the location of the current ball
 			startingBallLoc = new Point(playArea.getAllBalls().get(0).getX() + 5,
 					playArea.getAllBalls().get(0).getY() + 5);
+			targetingPanel.setPointsVector(startingBallLoc);
+
 			targettingTimer = new Timer(1, new ActionListener()
 			{
 				@Override
 				public void actionPerformed(ActionEvent arg0)
 				{
-					targetingPanel.setPointsVector(startingBallLoc);
 					targetingPanel.repaint();
 					playArea.repaint();
 				}
@@ -118,6 +120,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 	public void mouseClicked(MouseEvent arg0)
 	{
 		targettingTimer.stop();
+		targetingPanel.movingFlipper();
 	}
 
 	@Override
