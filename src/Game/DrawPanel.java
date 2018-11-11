@@ -28,7 +28,6 @@ public class DrawPanel extends JPanel
 	private int curScore = 1;
 
 	private BufferedImage[] brickColors;
-	private BufferedImage ballPic;
 	
 	private ArrayList<JPanel> allBrickPics;
 
@@ -44,7 +43,6 @@ public class DrawPanel extends JPanel
 			for(int i = 0; i < 7; i++) 
 				brickColors[i] = ImageIO.read(new File("Color_" + i + ".png"));
 
-			ballPic = ImageIO.read(new File("Ball.png"));
 
 		} catch (IOException ioe) {
 			System.out.println("Could not read in the pic");
@@ -73,13 +71,11 @@ public class DrawPanel extends JPanel
 			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 		}
 
-		g.setColor(Color.GREEN);
+		//shade of blue
+		g.setColor(new Color(99,205,255));
+		
 		for (Ball next : allBalls)
 		{
-			PicPanel pic = new PicPanel(Ball.DIAMETER, Ball.DIAMETER, ballPic);
-
-			pic.setBounds(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
-			add(pic);
 
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
