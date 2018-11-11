@@ -19,7 +19,7 @@ public class Brick
 
 	// 0 is not hit, 1 is hit horizontal wall, 2 is hit vertical wall, 3 is hit
 	// corner
-	public int isHit(Ball ball)
+	public boolean isHit(Ball ball)
 	{
 		int brickLeft = this.xLoc;
 		int brickRight = this.xLoc + BRICK_WIDTH;
@@ -31,58 +31,11 @@ public class Brick
 		int ballTop = ball.getY();
 		int ballBottom = ball.getY() + Ball.DIAMETER;
 
-		boolean hitX = ballLeft >= brickLeft && ballLeft <= brickRight
-				|| ballRight >= brickLeft && ballRight <= brickLeft;
-		boolean hitY = ballTop >= brickTop && ballTop <= brickBottom
-				|| ballBottom >= brickTop && ballBottom <= brickBottom;
+		boolean hitX = ballLeft >= brickLeft && ballLeft <= brickRight || ballRight >= brickLeft && ballRight <= brickLeft;
+		boolean hitY = ballTop >= brickTop && ballTop <= brickBottom || ballBottom >= brickTop && ballBottom <= brickBottom;
 
-		boolean hit = hitX && hitY;
+		return hitX && hitY;
 
-		int yDisp;
-		int xDisp;
-
-		// if the ball is traveling upwards
-		if (ball.getVel().yV < 0)
-		{
-			yDisp = ballTop - brickBottom;
-		}
-
-		// if the ball is traveling downwards
-		else
-		{
-			yDisp = brickTop - ballBottom;
-		}
-
-		// if the ball is traveling right
-		if (ball.getVel().xV > 0)
-		{
-			xDisp = brickLeft - ballRight;
-		}
-
-		// if the ball is traveling left
-		else
-		{
-			xDisp = ballLeft - brickRight;
-		}
-
-		if (!hit)
-		{
-			return 0;
-		} else
-		{
-			this.health--;
-		}
-
-		if (Math.abs(Math.abs(xDisp) - Math.abs(yDisp)) <= 2)
-		{
-			return 3;
-		} else if (Math.abs(xDisp) < Math.abs(yDisp))
-		{
-			return 2;
-		} else
-		{
-			return 1;
-		}
 	}
 
 	public int getXLoc()

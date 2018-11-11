@@ -2,38 +2,26 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.Scanner;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-public class BrickBreaker extends JFrame implements MouseListener
+public class BrickBreaker extends JFrame implements KeyListener
 {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3946190460435085023L;
-	private JLabel record;
 	private JLabel score;
-	private boolean isOver = true;
+	// private boolean isOver = false;
 
-	private BrickPanel playArea; // area with all bricks and balls
-	private TargettingPanel targetingPanel;
+	private DrawPanel playArea; // area with all bricks and balls
 	private Timer stepTimer;
-	private Timer targettingTimer;
 
-	private boolean newRecord;
-
-	private Point startingBallLoc;
+	private Point movePoint;
 
 	protected static final int PLAY_LENGTH = 650;
 
@@ -45,7 +33,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 		getContentPane().setBackground(Color.white);
 		setLayout(null);
 
-		playArea = new BrickPanel();
+		playArea = new DrawPanel();
 		playArea.setBackground(Color.white);
 		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
 		playArea.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
@@ -54,67 +42,38 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		add(playArea);
 
-		targetingPanel = new TargettingPanel();
-		targetingPanel.setBackground(Color.white);
-		targetingPanel.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
-		targetingPanel.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
-
-		targetingPanel.setLayout(null);
-
-		add(targetingPanel);
-
-		record = new JLabel("RECORD : ");
 		score = new JLabel("SCORE    : " + playArea.getCurScore());
 
-		record.setFont(new Font("Helvetica", Font.BOLD, 22));
 		score.setFont(new Font("Helvetica", Font.BOLD, 22));
 
-		record.setBounds(225, 25, 200, 20);
 		score.setBounds(225, 45, 200, 20);
 
-		add(record);
 		add(score);
 
-		setVisible(true);
+		this.addKeyListener(this);
+
 		playArea.addRow();
 
-		this.addMouseListener(this);
-
-		stepTimer = new Timer(10, new ActionListener()
+		stepTimer = new Timer(700, new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				targetingPanel.repaint();
+				if (!playArea.step())
+					stepTimer.stop();
+				updateScore();
 				playArea.repaint();
 			}
 		});
 
-		int i = 0;
+		stepTimer.start();
 
-		while (isOver)
-		{
-			score.setText("SCORE    : " + playArea.getCurScore());
+		setVisible(true);
+	}
 
-			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 5,
-					playArea.getAllBalls().peek().getY() + 5);
-			targettingTimer = new Timer(1, new ActionListener()
-			{
-				@Override
-				public void actionPerformed(ActionEvent arg0)
-				{
-					targetingPanel.setPointsVector(startingBallLoc);
-					targetingPanel.repaint();
-					playArea.repaint();
-				}
-			});
-
-			targettingTimer.start();
-
-			new Scanner(System.in).nextLine();
-		}
-
-		System.exit(-1);
+	private void updateScore()
+	{
+		score.setText("SCORE    : " + playArea.getCurScore());
 	}
 
 	public static void main(String[] args)
@@ -123,35 +82,32 @@ public class BrickBreaker extends JFrame implements MouseListener
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0)
+	public void keyTyped(KeyEvent e)
 	{
-		playArea.shootBall(MouseInfo.getPointerInfo().getLocation().x, MouseInfo.getPointerInfo().getLocation().y);
-		playArea.step();
+		
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0)
+	public void keyPressed(KeyEvent e)
 	{
-		// TODO Auto-generated method stub
+		int keyVal = e.getKeyCode();
 
+		// if key is left
+		if (e.getKeyChar() == 'j')
+		{
+			playArea.getBall().incX(-10);
+			repaint();
+		}
+		// if key is right
+		else if (e.getKeyChar() == 'k')
+		{
+			playArea.getBall().incX(10);
+			repaint();
+		}
 	}
 
 	@Override
-	public void mouseExited(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0)
+	public void keyReleased(KeyEvent e)
 	{
 		// TODO Auto-generated method stub
 
