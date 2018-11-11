@@ -2,6 +2,8 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Scanner;
@@ -9,8 +11,9 @@ import java.util.Scanner;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.Timer;
 
-public class BrickBreaker extends JFrame implements MouseListener
+public class BrickBreaker extends JFrame
 {
 
 	/**
@@ -19,6 +22,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private static final long serialVersionUID = -3946190460435085023L;
 	private JLabel record;
 	private JLabel score;
+	private boolean isOver = true;
+	private boolean ballsInMotion;
 
 	private DrawPanel playArea; // area with all bricks and balls
 
@@ -26,6 +31,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 	public BrickBreaker()
 	{
+		Timer lineupTimer;
+
 		setSize(650, 900);
 		setTitle("Brick Breaker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,46 +62,21 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		setVisible(true);
 
-		while (true)
+		while (isOver)
 		{
+			lineupTimer = new Timer(1, null);
+
+			while (!ballsInMotion)
+			{
+				playArea.drawVector();
+			}
+
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
 			score.setText("SCORE    : " + playArea.getCurScore());
 		}
-	}
 
-	@Override
-	public void mouseClicked(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
+		System.exit(-1);
 	}
 
 	public static void main(String[] args)
