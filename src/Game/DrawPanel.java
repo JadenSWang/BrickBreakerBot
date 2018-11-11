@@ -152,6 +152,10 @@ public class DrawPanel extends JPanel
 					// hit vertically
 					ball.reverseXDir();
 				}
+				else if(hitDirection == 3)
+				{
+					ball.reverseBothDir();
+				}
 			}
 		}
 	}

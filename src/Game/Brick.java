@@ -17,7 +17,7 @@ public class Brick
 		this.yLoc = y;
 	}
 
-	// 0 is not hit, 1 is hit horizontally, 2 is hit vertically
+	// 0 is not hit, 1 is hit horizontally, 2 is hit vertically, 3 is hit both
 	public int isHit(Ball ball)
 	{
 		int brickLeftLoc = this.xLoc;
@@ -51,7 +51,11 @@ public class Brick
 		if (xDisp < yDisp)
 		{
 			return 1;
-		} else
+		} else if (xDisp == yDisp)
+		{
+			return 3;
+		}
+		else
 		{
 			return 2;
 		}

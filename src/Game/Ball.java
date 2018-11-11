@@ -63,7 +63,7 @@ public class Ball
 	
 	public void reverseXDir()
 	{
-		this.vel.xV *= -1;
+		
 		System.out.println("xdir reversed");
 	}
 	
@@ -71,6 +71,12 @@ public class Ball
 	{
 		this.vel.yV *= -1;
 		System.out.println("ydir reversed");
+	}
+	
+	public void reverseBothDir()
+	{
+		this.vel.xV *= -1;
+		this.vel.yV *= -1;
 	}
 
 	
