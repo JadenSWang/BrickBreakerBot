@@ -29,6 +29,9 @@ public class BrickBreaker extends JFrame implements MouseListener
 	private Timer stepTimer;
 	private Timer targettingTimer;
 
+	private int xMouseLoc;
+	private int yMouseLoc;
+
 	private boolean newRecord;
 
 	private Point startingBallLoc;
@@ -78,15 +81,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		this.addMouseListener(this);
 
-		Timer moveBallTimer = new Timer(10, new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				playArea.repaint();
-			}
-		});
-
 		targettingTimer = new Timer(1, new ActionListener()
 		{
 			@Override
@@ -94,27 +88,28 @@ public class BrickBreaker extends JFrame implements MouseListener
 			{
 				targetingPanel.setPointsVector(startingBallLoc);
 				targetingPanel.repaint();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-				playArea.step();
-
 				playArea.repaint();
-				
-				if(playArea.getAllBalls().peek().hitBottom())
-					targettingTimer.stop();
 			}
 		});
 
-		int i = 0;
+		stepTimer = new Timer(1, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				for (int i = 0; i < 20; i++)
+				{
+					if (!playArea.step(xMouseLoc, yMouseLoc))
+					{
+						targettingTimer.start();
+						stepTimer.stop();
+					}
+				}
+				playArea.repaint();
+			}
+		});
+
+		targettingTimer.start();
 
 		while (isOver)
 		{
@@ -122,8 +117,6 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 5,
 					playArea.getAllBalls().peek().getY() + 5);
-
-			targettingTimer.start();
 		}
 
 		System.exit(-1);
@@ -137,17 +130,9 @@ public class BrickBreaker extends JFrame implements MouseListener
 	@Override
 	public void mouseClicked(MouseEvent arg0)
 	{
-
-		moveBall();
-	}
-
-	private void moveBall()
-	{
+		targettingTimer.stop();
+		stepTimer.start();
 		playArea.addRow();
-		// targetingPanel.repaint();
-		// playArea.repaint();
-		// playArea.shootBall();
-		// playArea.step();
 	}
 
 	@Override
