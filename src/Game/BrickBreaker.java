@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.MouseInfo;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
@@ -11,7 +13,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Timer;
 
-public class BrickBreaker extends JFrame {
+public class BrickBreaker extends JFrame implements MouseListener
+{
 
 	/**
 	 * 
@@ -20,16 +23,16 @@ public class BrickBreaker extends JFrame {
 	private JLabel record;
 	private JLabel score;
 	private boolean isOver = true;
-	private boolean ballsInMotion;
 
 	private DrawPanel playArea; // area with all bricks and balls
 
 	protected static final int PLAY_LENGTH = 650;
 
-	public BrickBreaker() {
+	public BrickBreaker()
+	{
 		Timer lineupTimer;
 
-		setSize(650, 900);
+		setSize(665, 900);
 		setTitle("Brick Breaker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(Color.white);
@@ -60,14 +63,9 @@ public class BrickBreaker extends JFrame {
 
 		playArea.addRow();
 
-		while (isOver) {
+		while (isOver)
+		{
 			lineupTimer = new Timer(1, null);
-
-			/*
-			 * while (!ballsInMotion) { Point mouseLocation =
-			 * MouseInfo.getPointerInfo().getLocation();
-			 * playArea.drawVector(mouseLocation.x, mouseLocation.y); }
-			 */
 
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
@@ -77,8 +75,43 @@ public class BrickBreaker extends JFrame {
 		System.exit(-1);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		new BrickBreaker();
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0)
+	{
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
 	}
 }

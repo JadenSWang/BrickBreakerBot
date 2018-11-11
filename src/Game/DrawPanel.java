@@ -16,7 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class DrawPanel extends JPanel implements MouseListener
+public class DrawPanel extends JPanel 
 {
 
 	/**
@@ -29,7 +29,7 @@ public class DrawPanel extends JPanel implements MouseListener
 
 	private BufferedImage[] brickColors;
 	private BufferedImage ballPic;
-
+	
 	private ArrayList<JPanel> allBrickPics;
 
 	public DrawPanel()
@@ -50,8 +50,6 @@ public class DrawPanel extends JPanel implements MouseListener
 			System.out.println("Could not read in the pic");
 			System.exit(0);
 		}
-
-		this.addMouseListener(this);
 
 		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21));
 	}
@@ -85,11 +83,12 @@ public class DrawPanel extends JPanel implements MouseListener
 
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
+		
 	}
 
 	public void drawVector(int x, int y) {
-
-
+		
+		
 
 	}
 
@@ -150,40 +149,6 @@ public class DrawPanel extends JPanel implements MouseListener
 		return this.allBalls;
 	}
 
-	@Override
-	public void mouseClicked(MouseEvent e)
-	{
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 	public class PicPanel extends JPanel {
 
 		private int width;
@@ -239,5 +204,4 @@ public class DrawPanel extends JPanel implements MouseListener
 		}
 
 	}
-
 }
