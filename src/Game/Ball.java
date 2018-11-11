@@ -64,12 +64,14 @@ public class Ball
 	public void reverseXDir()
 	{
 		this.vel.xV *= -1;
+		updateLoc();
 		System.out.println("xdir reversed");
 	}
 	
 	public void reverseYDir()
 	{
 		this.vel.yV *= -1;
+		updateLoc();
 		System.out.println("ydir reversed");
 	}
 	
