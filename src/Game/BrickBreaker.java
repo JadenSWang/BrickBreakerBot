@@ -2,44 +2,70 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
-
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.Timer;
 
-public class BrickBreaker extends JFrame implements ActionListener
+public class BrickBreaker extends JFrame implements MouseListener
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3946190460435085023L;
 	private JLabel record;
 	private JLabel score;
-	private int curScore;
+	private boolean isOver = true;
 
-	public static final int SCREEN_WIDTH = 650;
-	public static final int SCREEN_HEIGHT = 900;
+	private BrickPanel playArea; // area with all bricks and balls
+	private TargettingPanel targetingPanel;
+	private Timer stepTimer;
+	private Timer targettingTimer;
 
-	private DrawPanel playArea; // area with all bricks and balls
+	private int xMouseLoc;
+	private int yMouseLoc;
 
-	private Timer timer;
+	private boolean newRecord;
 
-	private JPanel[][] panelHolder;
+	private Point startingBallLoc;
+
+	protected static final int PLAY_LENGTH = 650;
 
 	public BrickBreaker()
-
-	// allows me to change specific elements of the grid
 	{
-
-		setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+		setSize(665, 900);
 		setTitle("Brick Breaker");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setBackground(Color.white);
 		setLayout(null);
 
+		playArea = new BrickPanel();
+		playArea.setBackground(Color.white);
+		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
+		playArea.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
+
+		playArea.setLayout(null);
+
+		add(playArea);
+
+		targetingPanel = new TargettingPanel();
+		targetingPanel.setBackground(Color.white);
+		targetingPanel.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
+		targetingPanel.setBounds(0, 125, PLAY_LENGTH, PLAY_LENGTH);
+
+		targetingPanel.setLayout(null);
+
+		add(targetingPanel);
+
 		record = new JLabel("RECORD : ");
-		score = new JLabel("SCORE    : " + curScore);
+		score = new JLabel("SCORE    : " + playArea.getCurScore());
 
 		record.setFont(new Font("Helvetica", Font.BOLD, 22));
 		score.setFont(new Font("Helvetica", Font.BOLD, 22));
@@ -50,53 +76,51 @@ public class BrickBreaker extends JFrame implements ActionListener
 		add(record);
 		add(score);
 
-		playArea = new DrawPanel();
-		playArea.setBackground(Color.white);
-		playArea.setBorder(BorderFactory.createMatteBorder(5, 0, 5, 0, Color.black));
-		playArea.setBounds(0, 125, 650, 650);
-
-		playArea.setLayout(new GridLayout(8, 6, 2, 2));
-
-		panelHolder = new JPanel[8][6];
-
-		for (int row = 0; row < panelHolder.length; row++)
-		{
-			for (int col = 0; col < panelHolder[0].length; col++)
-			{
-				panelHolder[row][col] = new JPanel();
-				playArea.add(panelHolder[row][col]);
-			}
-		}
-
-		add(playArea);
-
-		addRow();
 		setVisible(true);
+		playArea.addRow();
 
-	}
+		this.addMouseListener(this);
 
-	public void addRow()
-	{
-
-		int numNewBricks = (int) (Math.random() * 4 + 2);
-
-		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
-
-		for (int i = 0; i < numNewBricks; i++)
+		targettingTimer = new Timer(1, new ActionListener()
 		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				targetingPanel.setPointsVector(startingBallLoc);
+				targetingPanel.repaint();
+				playArea.repaint();
+			}
+		});
 
-			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
+		stepTimer = new Timer(1, new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				for (int i = 0; i < 20; i++)
+				{
+					if (!playArea.step(xMouseLoc, yMouseLoc))
+					{
+						targettingTimer.start();
+						stepTimer.stop();
+					}
+				}
 
-			panelHolder[0][addLoc] = new Brick(curScore);
+				playArea.repaint();
+			}
+		});
 
+		targettingTimer.start();
+
+		while (isOver)
+		{
+			score.setText("SCORE    : " + playArea.getCurScore());
+
+			startingBallLoc = new Point(playArea.getAllBalls().peek().getX() + 5,
+					playArea.getAllBalls().peek().getY() + 5);
 		}
 
-	}
-
-	public void actionPerformed(ActionEvent arg0)
-	{
-		// TODO Auto-generated method stub
-
+		System.exit(-1);
 	}
 
 	public static void main(String[] args)
@@ -104,4 +128,39 @@ public class BrickBreaker extends JFrame implements ActionListener
 		new BrickBreaker();
 	}
 
+	@Override
+	public void mouseClicked(MouseEvent arg0)
+	{
+		targettingTimer.stop();
+		stepTimer.start();
+		playArea.addRow();
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
 }
