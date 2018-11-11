@@ -14,7 +14,7 @@ public class Ball
 
 	public Ball(int xLoc, int yLoc)
 	{
-		vel = new Velocity(10,-10);
+		vel = new Velocity(1,-1);
 		this.xLoc = xLoc;
 		this.yLoc = yLoc;
 	}
