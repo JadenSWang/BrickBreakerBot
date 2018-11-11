@@ -73,6 +73,7 @@ public class Ball
 
 	public class Velocity
 	{
+		
 		int xV;
 		int yV;
 
