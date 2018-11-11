@@ -26,8 +26,7 @@ public class DrawPanel extends JPanel implements MouseListener
 		allBricks = new ArrayList<Brick>();
 		this.addMouseListener(this);
 
-		// allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH/2,BrickBreaker.PLAY_LENGTH));
-		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2, BrickBreaker.PLAY_LENGTH - 21));
+		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21));
 	}
 
 	public void paintComponent(Graphics g)
@@ -50,7 +49,6 @@ public class DrawPanel extends JPanel implements MouseListener
 	// adds a new row of bricks
 	public void addRow()
 	{
-
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
@@ -75,7 +73,7 @@ public class DrawPanel extends JPanel implements MouseListener
 		moveDown();
 		repaint();
 	}
-	
+
 	public int getCurScore()
 	{
 		return curScore;
