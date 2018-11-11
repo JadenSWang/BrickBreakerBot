@@ -67,9 +67,9 @@ public class DrawPanel extends JPanel implements MouseListener
 				x = (Brick.BRICK_WIDTH * addLoc) + (2 * addLoc);
 
 			allBricks.add(new Brick(curScore, x, y));
-
 		}
-
+		
+		curScore++;
 		moveDown();
 		repaint();
 	}
