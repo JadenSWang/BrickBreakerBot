@@ -11,8 +11,13 @@ import java.util.Arrays;
 
 import javax.swing.*;
 
-public class BrickBreaker extends JFrame implements ActionListener {
+public class BrickBreaker extends JFrame implements ActionListener
+{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3946190460435085023L;
 	private JLabel record;
 	private JLabel score;
 	private int curScore;
@@ -21,7 +26,8 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 	protected static final int PLAY_LENGTH = 650;
 
-	public BrickBreaker() {
+	public BrickBreaker()
+	{
 
 		setSize(650, 900);
 		setTitle("Brick Breaker");
@@ -57,13 +63,15 @@ public class BrickBreaker extends JFrame implements ActionListener {
 	}
 
 	// adds a new row of bricks
-	public void addRow() {
+	public void addRow()
+	{
 
 		int numNewBricks = (int) (Math.random() * 4 + 1);
 
 		ArrayList<Integer> possibleLocs = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5));
 
-		for (int i = 0; i < numNewBricks; i++) {
+		for (int i = 0; i < numNewBricks; i++)
+		{
 
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 
@@ -79,23 +87,25 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 		moveDown();
 		repaint();
-//hi shtieng
 	}
 
 	// moves all bricks down one row
-	public void moveDown() {
+	public void moveDown()
+	{
 
 		for (Brick b : playArea.getAllBricks())
 			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
 
 	}
 
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent arg0)
+	{
 		// TODO Auto-generated method stub
 
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 
 		new BrickBreaker();
 	}
