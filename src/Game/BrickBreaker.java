@@ -2,16 +2,18 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-
-import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
-public class BrickBreaker extends JFrame implements ActionListener
+public class BrickBreaker extends JFrame implements MouseListener
 {
 
 	/**
@@ -56,9 +58,13 @@ public class BrickBreaker extends JFrame implements ActionListener
 
 		add(playArea);
 
-		addRow();
-
 		setVisible(true);
+
+		while (true)
+		{
+			new Scanner(System.in).nextLine();
+			addRow();
+		}
 
 	}
 
@@ -76,6 +82,8 @@ public class BrickBreaker extends JFrame implements ActionListener
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 
 			int x = 0;
+
+			// always first row
 			int y = 5;
 
 			if (addLoc != 0)
@@ -98,7 +106,36 @@ public class BrickBreaker extends JFrame implements ActionListener
 
 	}
 
-	public void actionPerformed(ActionEvent arg0)
+	@Override
+	public void mouseClicked(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0)
 	{
 		// TODO Auto-generated method stub
 
