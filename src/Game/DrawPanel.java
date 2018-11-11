@@ -1,12 +1,17 @@
 package Game;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class DrawPanel extends JPanel implements MouseListener
@@ -20,10 +25,30 @@ public class DrawPanel extends JPanel implements MouseListener
 	private ArrayList<Ball> allBalls;
 	private int curScore;
 
+	private BufferedImage[] brickColors;
+	private BufferedImage ballPic;
+
+	private ArrayList<JPanel> allBrickPics;
+	
 	public DrawPanel()
 	{
 		allBalls = new ArrayList<Ball>();
 		allBricks = new ArrayList<Brick>();
+		allBrickPics = new ArrayList<JPanel>();
+		brickColors = new BufferedImage[7];
+		
+		try {
+
+			for(int i = 0; i < 7; i++) 
+				brickColors[i] = ImageIO.read(new File("Color_" + i + ".png"));
+			
+			ballPic = ImageIO.read(new File("Ball.png"));
+
+		} catch (IOException ioe) {
+			System.out.println("Could not read in the pic");
+			System.exit(0);
+		}
+
 		this.addMouseListener(this);
 
 		allBalls.add(new Ball(BrickBreaker.PLAY_LENGTH / 2 - Ball.DIAMETER / 2, BrickBreaker.PLAY_LENGTH - 21));
@@ -36,16 +61,59 @@ public class DrawPanel extends JPanel implements MouseListener
 		g.setColor(Color.ORANGE);
 		for (Brick next : allBricks)
 		{
+
+			int colorLoc = (int) (next.getHealth() / ((double)curScore/7));
+
+			JPanel pic = getPic(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc]);
+
+			pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+			add(pic);
+			allBrickPics.add(pic);
+
 			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 		}
 
 		g.setColor(Color.GREEN);
 		for (Ball next : allBalls)
 		{
+			JPanel pic = getPic(Ball.DIAMETER, Ball.DIAMETER, ballPic);
+
+			pic.setBounds(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
+			add(pic);
+
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
 	}
 
+	//returns the desired picture as a jpanel
+	private JPanel getPic(int w, int h, BufferedImage i) {
+
+		return new JPanel() {
+
+			// called by the machine
+			public Dimension getPreferredSize() {
+				return new Dimension(w, h);
+			}
+
+			// called automatically by repaint
+			public void paintComponent(Graphics g) {
+
+				super.paintComponent(g);
+
+				g.drawImage(i, 0, 0, this);
+			}
+
+		};
+		
+
+	}
+
+	public void drawVector(int x, int y) {
+		
+		
+		
+	}
+	
 	// adds a new row of bricks
 	public void addRow()
 	{
@@ -84,6 +152,10 @@ public class DrawPanel extends JPanel implements MouseListener
 	{
 		for (Brick b : allBricks)
 			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
+		
+		for(JPanel j : allBrickPics) 
+			j.setBounds(j.getX(), j.getY() + Brick.BRICK_HEIGHT + 2, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+		
 	}
 
 	public ArrayList<Brick> getAllBricks()
