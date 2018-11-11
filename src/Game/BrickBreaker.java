@@ -60,6 +60,8 @@ public class BrickBreaker extends JFrame
 
 		setVisible(true);
 
+		playArea.addRow();
+		
 		while (isOver)
 		{
 			lineupTimer = new Timer(1, null);

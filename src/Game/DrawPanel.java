@@ -2,6 +2,7 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.imageio.ImageIO;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class DrawPanel extends JPanel implements MouseListener
@@ -23,7 +25,7 @@ public class DrawPanel extends JPanel implements MouseListener
 	private static final long serialVersionUID = 8253100141533033512L;
 	private ArrayList<Brick> allBricks;
 	private ArrayList<Ball> allBalls;
-	private int curScore;
+	private int curScore = 1;
 
 	private BufferedImage[] brickColors;
 	private BufferedImage ballPic;
@@ -62,9 +64,9 @@ public class DrawPanel extends JPanel implements MouseListener
 		for (Brick next : allBricks)
 		{
 
-			int colorLoc = (int) (next.getHealth() / ((double)curScore/7));
+			int colorLoc = (int) (next.getHealth() / ((double)(curScore)/7));
 
-			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc]);
+			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
 
 			pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
 			add(pic);
@@ -130,9 +132,12 @@ public class DrawPanel extends JPanel implements MouseListener
 		for (Brick b : allBricks)
 			b.setYLoc(b.getYLoc() + Brick.BRICK_HEIGHT + 2);
 
-		for(JPanel j : allBrickPics) 
+		for(int i = 0; i < allBrickPics.size(); i++) { 
+			
+			JPanel j = allBrickPics.get(i);
+			
 			j.setBounds(j.getX(), j.getY() + Brick.BRICK_HEIGHT + 2, Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-
+		}
 	}
 
 	public ArrayList<Brick> getAllBricks()
@@ -184,13 +189,42 @@ public class DrawPanel extends JPanel implements MouseListener
 		private int width;
 		private int height;
 		private BufferedImage i;
-		
+		private Brick thisBrick; 
+		private JLabel healthLabel;
+
 		public PicPanel(int w, int h, BufferedImage bI) {
-			
-			
-			
+
+			width = w;
+			height = h;
+			i = bI;
+
+
 		}
-		
+
+		public PicPanel(int w, int h, BufferedImage bI, Brick b) {
+
+			this(w,h,bI);
+
+			thisBrick = b;
+			healthLabel = new JLabel();
+
+			healthLabel.setFont(new Font("Helvetica",Font.BOLD,40));
+			healthLabel.setForeground(Color.white);
+
+			setLabel();
+
+			add(healthLabel);
+
+
+
+		}
+
+		public void setLabel() {
+
+			healthLabel.setText(thisBrick.getHealth() +"");
+
+		}
+
 		// called by the machine
 		public Dimension getPreferredSize() {
 			return new Dimension(width, height);
