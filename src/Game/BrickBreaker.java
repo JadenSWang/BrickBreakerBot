@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 import javax.swing.*;
 
@@ -50,9 +51,12 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 		add(playArea);
 
-		addRow();
-
 		setVisible(true);
+
+		while (true) {
+			new Scanner(System.in).nextLine();
+			addRow();
+		}
 
 	}
 
@@ -68,6 +72,8 @@ public class BrickBreaker extends JFrame implements ActionListener {
 			int addLoc = possibleLocs.remove((int) (Math.random() * possibleLocs.size()));
 
 			int x = 0;
+
+			// always first row
 			int y = 5;
 
 			if (addLoc != 0)
@@ -79,7 +85,6 @@ public class BrickBreaker extends JFrame implements ActionListener {
 
 		moveDown();
 		repaint();
-//hi shtieng
 	}
 
 	// moves all bricks down one row
@@ -91,7 +96,6 @@ public class BrickBreaker extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
