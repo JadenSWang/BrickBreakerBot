@@ -1,11 +1,14 @@
 package Game;
 
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 
 public class Ball
 {
 	private int xLoc;
 	private int yLoc;
+	private Velocity vel;
 
 	public static final int DIAMETER = 15;
 
@@ -39,5 +42,45 @@ public class Ball
 	public int getY()
 	{
 		return yLoc;
+	}
+
+	public void hitHorizWall()
+	{
+		this.vel.yV *= -1;
+	}
+
+	public void hitVertWall()
+	{
+		this.vel.xV *= -1;
+	}
+
+	public void updateLoc()
+	{
+		this.xLoc += this.vel.xV;
+		this.yLoc += this.vel.yV;
+	}
+	public void step(ArrayList<Brick> allBricks)
+	{
+	
+		for (Brick brick : allBricks)
+		{
+			int hitDirection = brick.isHit(this);
+
+			if (hitDirection == 1)
+			{
+				// hit horizontally
+				this.vel.yV *= -1;
+			} else if (hitDirection == 2)
+			{
+				// hit vertically
+				this.vel.xV *= 1;
+			}
+		}
+	}
+
+	private class Velocity
+	{
+		int xV;
+		int yV;
 	}
 }
