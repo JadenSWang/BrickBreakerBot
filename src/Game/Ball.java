@@ -59,25 +59,18 @@ public class Ball
 		this.xLoc += this.vel.xV;
 		this.yLoc += this.vel.yV;
 	}
-	public void step(ArrayList<Brick> allBricks)
-	{
 	
-		for (Brick brick : allBricks)
-		{
-			int hitDirection = brick.isHit(this);
-
-			if (hitDirection == 1)
-			{
-				// hit horizontally
-				this.vel.yV *= -1;
-			} else if (hitDirection == 2)
-			{
-				// hit vertically
-				this.vel.xV *= 1;
-			}
-		}
+	public void reverseXDir()
+	{
+		this.vel.xV *= -1;
+	}
+	
+	public void reverseYDir()
+	{
+		this.vel.yV *= -1;
 	}
 
+	
 	private class Velocity
 	{
 		int xV;
