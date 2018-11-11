@@ -62,6 +62,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 		{
 			new Scanner(System.in).nextLine();
 			playArea.addRow();
+			score.setText("SCORE    : " + playArea.getCurScore());
+			
 		}
 
 	}
