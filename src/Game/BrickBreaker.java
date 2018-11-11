@@ -58,7 +58,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 
 		targettingPanel.setLayout(null);
 
-		add(targettingPanel);
+//		add(targettingPanel);
 
 		record = new JLabel("RECORD : ");
 		score = new JLabel("SCORE    : " + playArea.getCurScore());
@@ -92,8 +92,9 @@ public class BrickBreaker extends JFrame implements MouseListener
 			});
 
 			targettingTimer.start();
-
 			new Scanner(System.in).nextLine();
+			
+			playArea.step();
 		}
 
 		System.exit(-1);
