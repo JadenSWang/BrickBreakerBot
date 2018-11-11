@@ -129,6 +129,15 @@ public class BrickPanel extends DrawPanel
 				{
 					ball.reverseBothDir();
 				}
+				
+				if(ball.getX() >= BrickBreaker.PLAY_LENGTH || ball.getY() >= BrickBreaker.PLAY_LENGTH)
+				{
+					ball.reverseXDir();
+				}
+				if(ball.getY() >= BrickBreaker.PLAY_LENGTH)
+				{
+					ball.reverseYDir();
+				}
 			}
 		}
 	}
