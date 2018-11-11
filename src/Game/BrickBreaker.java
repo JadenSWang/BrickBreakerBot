@@ -87,6 +87,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
 
 		stepTimer = new Timer(10, new ActionListener()
 		{
@@ -98,7 +99,7 @@ public class BrickBreaker extends JFrame implements MouseListener
 			}
 
 		});
-
+		
 		while (isOver)
 		{
 			score.setText("SCORE    : " + playArea.getCurScore());

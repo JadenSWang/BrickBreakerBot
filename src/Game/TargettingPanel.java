@@ -26,6 +26,8 @@ public class TargettingPanel extends BrickPanel
 
 			Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
 			g.drawLine(mouseLoc.x, mouseLoc.y, startingBallLoc.x, startingBallLoc.y);
+		} else {
+			
 		}
 	}
 
