@@ -60,7 +60,7 @@ public class Brick
 		//if the ball is traveling left
 		else
 		{
-			xDisp = ballLeft = brickRight;
+			xDisp = ballLeft - brickRight;
 		}
 		
 //		int xDisp = Math.min(Math.abs(this.xLoc - ball.getX()), Math.abs(this.xLoc - (ball.getX() + BRICK_WIDTH)));
