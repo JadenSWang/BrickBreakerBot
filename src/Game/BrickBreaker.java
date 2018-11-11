@@ -2,10 +2,8 @@ package Game;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.MouseInfo;
+import java.awt.Point;
 import java.util.Scanner;
 
 import javax.swing.BorderFactory;
@@ -68,7 +66,8 @@ public class BrickBreaker extends JFrame
 
 			while (!ballsInMotion)
 			{
-				playArea.drawVector();
+				Point mouseLocation = MouseInfo.getPointerInfo().getLocation();
+				playArea.drawVector(mouseLocation.x, mouseLocation.y);
 			}
 
 			new Scanner(System.in).nextLine();
