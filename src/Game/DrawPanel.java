@@ -61,29 +61,63 @@ public class DrawPanel extends JPanel
 	{
 		super.paintComponent(g);
 
+		Thread vectorDrawing = new Thread(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				if (startingBallLoc == null)
+				{
+					throw new IllegalStateException("Must set starting point first");
+				}
+
+				Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
+				g.drawLine(mouseLoc.x, mouseLoc.y, startingBallLoc.x, startingBallLoc.y);
+			}
+		});
+
 		if (!ballsInMotion)
 		{
-			if (startingBallLoc == null)
+			vectorDrawing.start();
+			try
 			{
-				throw new IllegalStateException("Must set starting point first");
+				vectorDrawing.join();
+			} catch (InterruptedException e)
+			{
+				e.printStackTrace();
 			}
-
-			Point mouseLoc = MouseInfo.getPointerInfo().getLocation();
-			g.drawLine(mouseLoc.x, mouseLoc.y, startingBallLoc.x, startingBallLoc.y);
 		}
 
-		for (Brick next : allBricks)
+		Thread bricks = new Thread(new Runnable()
 		{
+			@Override
+			public void run()
+			{
+				for (Brick next : allBricks)
+				{
 
-			int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
+					int colorLoc = (int) (next.getHealth() / ((double) (curScore) / 7));
 
-			PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
+					PicPanel pic = new PicPanel(Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT, brickColors[colorLoc], next);
 
-			pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
-			add(pic);
-			allBrickPics.add(pic);
+					pic.setBounds(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+					add(pic);
+					allBrickPics.add(pic);
 
-			g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+					g.fillRect(next.getXLoc(), next.getYLoc(), Brick.BRICK_WIDTH, Brick.BRICK_HEIGHT);
+				}
+			}
+		});
+		
+		bricks.start();
+		
+		try
+		{
+			bricks.join();
+		} catch (InterruptedException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 		// shade of blue
@@ -91,9 +125,9 @@ public class DrawPanel extends JPanel
 
 		for (Ball next : allBalls)
 		{
-
 			g.fillOval(next.getX(), next.getY(), Ball.DIAMETER, Ball.DIAMETER);
 		}
+
 	}
 
 	public void movingFlipper()
@@ -151,8 +185,7 @@ public class DrawPanel extends JPanel
 				{
 					// hit vertically
 					ball.reverseXDir();
-				}
-				else if(hitDirection == 3)
+				} else if (hitDirection == 3)
 				{
 					ball.reverseBothDir();
 				}
@@ -193,6 +226,10 @@ public class DrawPanel extends JPanel
 	public class PicPanel extends JPanel
 	{
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = -4102117768556729337L;
 		private int width;
 		private int height;
 		private BufferedImage i;
