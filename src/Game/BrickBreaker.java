@@ -78,12 +78,8 @@ public class BrickBreaker extends JFrame implements MouseListener
 				@Override
 				public void actionPerformed(ActionEvent arg0)
 				{
-					Long start = System.currentTimeMillis();
-
 					playArea.setPointsVector(startingBallLoc);
 					playArea.repaint();
-
-					System.out.println(System.currentTimeMillis() - start);
 				}
 			});		
 			
