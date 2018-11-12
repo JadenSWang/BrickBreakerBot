@@ -2,11 +2,8 @@
 
 Project at CodeDay DC 11/10/2018 - 11/11/2018, Brick Breaker Game Library
 
-Shiteng (Jaden) Wang  
->aka JSwang
+Shiteng (Jaden) Wang  *JSwang*
 
-Erik Kenneth Sherman  
->aka ErikSherman
+Erik Kenneth Shermam *ErikSherman*
 
-Josiah Kim            
->aka Jotkim
+Josiah Kim *Jotkim*
