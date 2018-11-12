@@ -11,12 +11,12 @@ import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 public class BrickBreaker extends JFrame implements KeyListener
 {
 	private JLabel score;
-	// private boolean isOver = false;
 
 	private DrawPanel playArea; // area with all bricks and balls
 	private Timer stepTimer;
@@ -60,7 +60,9 @@ public class BrickBreaker extends JFrame implements KeyListener
 			public void actionPerformed(ActionEvent arg0)
 			{
 				if (!playArea.step())
+				{
 					stepTimer.stop();
+				}
 				updateScore();
 				playArea.repaint();
 			}
